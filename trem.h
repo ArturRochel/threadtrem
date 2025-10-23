@@ -26,7 +26,7 @@ private:
    int y;           //posição Y do trem na tela
    int ID;          //ID do trem
    int velocidade;  //Velocidade. É o tempo de dormir em milisegundos entre a mudança de posição do trem
-   QList<QMutex*> controles;// Mutexes para controlar os trechos
+   void regiaoCritica(int ID);  // declarando região critica aqui para ter acesso ao ID, x e y do trem
 };
 
 
