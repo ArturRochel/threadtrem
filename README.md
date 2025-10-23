@@ -18,6 +18,10 @@ Cada trem é executado em uma **thread própria**, garantindo **máximo paraleli
 O projeto define **7 regiões críticas** (zonas de conflito) — locais onde dois ou mais trens podem colidir.  
 Essas regiões são controladas por **mutexes** ou **semáforos**, garantindo o acesso exclusivo e evitando condições de corrida.
 
+A figura abaixo ilustra a **malha ferroviária** utilizada no projeto, com os respectivos trechos e zonas de conflito:
+
+![Malha ferroviária do projeto](./malha.png)
+
 ---
 
 ## ⚙️ Tecnologias e Conceitos Utilizados
