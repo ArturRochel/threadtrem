@@ -12,87 +12,86 @@ Trem::Trem(int ID, int x, int y){
 
 void Trem::run(){
     while(true){
-        // COORDENADAS E PASSOS DUPLICADOS (passo de 10 para 20)
         switch(ID){
 
-        case 1: // T1 (Loop Top-Left) - LÓGICA CORRIGIDA E DUPLICADA
-            if (y == 100 && x < 300) {
+        case 1: // Trem 1 (bloco superior esquerdo)
+            if (y == 100 && x < 300) { // movimenta para a direita
                 x += 20;
-            } else if (x == 300 && y < 300) {
+            } else if (x == 300 && y < 300) { // movimenta para baixo
                 y += 20;
-            } else if (y == 300 && x > 100) {
+            } else if (y == 300 && x > 100) { // movimenta para esquerda
                 x -= 20;
-            } else { // x == 100 && y > 100
+            } else { // x == 100 && y > 100 // movimenta para cima
                 y -= 20;
             }
             emit updateGUI(ID, x,y);
             msleep(velocidade);
             break;
 
-        case 2: // T2 (Loop Bot-Left) - LÓGICA CORRIGIDA E DUPLICADA
-            if (y == 300 && x < 400) {
+        case 2: // Trem 2 (bloco inferior esquerdo)
+            if (y == 300 && x < 400) { // movimenta para a direita
                 x += 20;
-            } else if (x == 400 && y < 500) {
+            } else if (x == 400 && y < 500) { // movimenta para baixo
                 y += 20;
-            } else if (y == 500 && x > 100) {
+            } else if (y == 500 && x > 100) { // movimenta para esquerda
                 x -= 20;
-            } else { // x == 100 && y > 300
+            } else { // x == 100 && y > 300 // movimenta para cima
                 y -= 20;
             }
             emit updateGUI(ID, x,y);
             msleep(velocidade);
             break;
 
-        case 3: // T3 (Loop Bot-Right) - SINTAXE CORRIGIDA E DUPLICADA
-            if (y == 300 && x < 700) {
+        case 3: // Trem 3 (bloco inferior direito)
+            if (y == 300 && x < 700) { // movimenta para a direita
                 x += 20;
-            } else if (x == 700 && y < 500) {
+            } else if (x == 700 && y < 500) { // movimenta para baixo
                 y += 20;
-            } else if (y == 500 && x > 400) {
+            } else if (y == 500 && x > 400) { // movimenta para esquerda
                 x -= 20;
-            } else { // x == 400 && y > 300
+            } else { // x == 400 && y > 300 // movimenta para cima
                 y -= 20;
             }
             emit updateGUI(ID, x,y);
             msleep(velocidade);
             break;
 
-        case 4: // T4 (Loop Top-Right) - DUPLICADA
-            if (y == 100 && x < 700) {
+        case 4: // Trem 4 (bloco superior direito)
+            if (y == 100 && x < 700) { // movimenta para a direita
                 x += 20;
-            } else if (x == 700 && y < 300) {
+            } else if (x == 700 && y < 300) { // movimenta para baixo
                 y += 20;
-            } else if (y == 300 && x > 500) {
+            } else if (y == 300 && x > 500) { // movimenta para esquerda
                 x -= 20;
-            } else { // x == 500 && y > 100
+            } else { // x == 500 && y > 100 // movimenta para cima
                 y -= 20;
             }
             emit updateGUI(ID, x,y);
             msleep(velocidade);
             break;
 
-        case 5: // T5 (Loop Top-Mid) - DUPLICADA
-            if (y == 100 && x < 500) {
+        case 5: // Trem 5 (bloco superior central)
+            if (y == 100 && x < 500) { // movimenta para a direita
                 x += 20;
-            } else if (x == 500 && y < 300) {
+            } else if (x == 500 && y < 300) { // movimenta para baixo
                 y += 20;
-            } else if (y == 300 && x > 300) {
+            } else if (y == 300 && x > 300) { // movimenta para esquerda
                 x -= 20;
-            } else { // x == 300 && y > 100
+            } else { // x == 300 && y > 100 // movimenta para cima
                 y -= 20;
             }
             emit updateGUI(ID, x,y);
             msleep(velocidade);
             break;
 
-        case 6: // T6 (Perímetro) - LÓGICA CORRIGIDA E DUPLICADA
-            if (y == 100 && x > 100) {
+        case 6: // Trem 6 (bloco inteiro)
+            if (y == 100 && x > 100) { // movimenta para a esquerda
                 x -= 20;
-            } else if (x == 100 && y < 500) {
+            } else if (x == 100 && y < 500) { // movimenta para baixo
                 y += 20;
-            } else if (y == 500 && x < 700) {
+            } else if (y == 500 && x < 700) { // movimenta para direita
                 x += 20;
-            } else { // x == 700 && y > 100
+            } else { // x == 700 && y > 100 // movimenta para cima
                 y -= 20;
             }
             emit updateGUI(ID, x,y);
