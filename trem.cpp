@@ -1,7 +1,6 @@
 #include "trem.h"
 #include <QtCore>
-#include <mutex>
-std::mutex mtx;
+
 //Construtor
 Trem::Trem(int ID, int x, int y){
     this->ID = ID;
@@ -9,6 +8,20 @@ Trem::Trem(int ID, int x, int y){
     this->y = y;
     velocidade = 100;
 }
+
+std::mutex Trem::mutex mtxTrecho01;
+std::mutex Trem::mutex mtxTrecho02;
+std::mutex Trem::mutex mtxTrecho03;
+std::mutex Trem::mutex mtxTrecho04;
+std::mutex Trem::mutex mtxTrecho05;
+std::mutex Trem::mutex mtxTrecho06;
+std::mutex Trem::mutex mtxTrecho07;
+std::mutex Trem::mutex mtxTrecho08;
+std::mutex Trem::mutex mtxTrecho09;
+std::mutex Trem::mutex mtxTrecho10;
+std::mutex Trem::mutex mtxTrecho11;
+std::mutex Trem::mutex mtxTrecho12;
+
 
 void Trem::run(){
     while(true){
