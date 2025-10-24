@@ -12,87 +12,88 @@ Trem::Trem(int ID, int x, int y){
 
 void Trem::run(){
     while(true){
+        // COORDENADAS E PASSOS DUPLICADOS (passo de 10 para 20)
         switch(ID){
 
-        case 1: // T1 (Loop Top-Left) - LÓGICA CORRIGIDA
-            if (y == 50 && x < 150) {
-                x += 10;
-            } else if (x == 150 && y < 150) {
-                y += 10;
-            } else if (y == 150 && x > 50) {
-                x -= 10;
-            } else { // x == 50 && y > 50
-                y -= 10;
+        case 1: // T1 (Loop Top-Left) - LÓGICA CORRIGIDA E DUPLICADA
+            if (y == 100 && x < 300) {
+                x += 20;
+            } else if (x == 300 && y < 300) {
+                y += 20;
+            } else if (y == 300 && x > 100) {
+                x -= 20;
+            } else { // x == 100 && y > 100
+                y -= 20;
             }
             emit updateGUI(ID, x,y);
             msleep(velocidade);
             break;
 
-        case 2: // T2 (Loop Bot-Left) - LÓGICA CORRIGIDA
-            if (y == 150 && x < 200) {
-                x += 10;
-            } else if (x == 200 && y < 250) {
-                y += 10;
-            } else if (y == 250 && x > 50) {
-                x -= 10;
-            } else { // x == 50 && y > 150
-                y -= 10;
+        case 2: // T2 (Loop Bot-Left) - LÓGICA CORRIGIDA E DUPLICADA
+            if (y == 300 && x < 400) {
+                x += 20;
+            } else if (x == 400 && y < 500) {
+                y += 20;
+            } else if (y == 500 && x > 100) {
+                x -= 20;
+            } else { // x == 100 && y > 300
+                y -= 20;
             }
             emit updateGUI(ID, x,y);
             msleep(velocidade);
             break;
 
-        case 3: // T3 (Loop Bot-Right) - SINTAXE CORRIGIDA
-            if (y == 150 && x < 350) {
-                x += 10;
-            } else if (x == 350 && y < 250) {
-                y += 10;
-            } else if (y == 250 && x > 200) {
-                x -= 10;
-            } else { // x == 200 && y > 150
-                y -= 10;
+        case 3: // T3 (Loop Bot-Right) - SINTAXE CORRIGIDA E DUPLICADA
+            if (y == 300 && x < 700) {
+                x += 20;
+            } else if (x == 700 && y < 500) {
+                y += 20;
+            } else if (y == 500 && x > 400) {
+                x -= 20;
+            } else { // x == 400 && y > 300
+                y -= 20;
             }
             emit updateGUI(ID, x,y);
             msleep(velocidade);
             break;
 
-        case 4: // T4 (Loop Top-Right)
-            if (y == 50 && x < 350) {
-                x += 10;
-            } else if (x == 350 && y < 150) {
-                y += 10;
-            } else if (y == 150 && x > 250) {
-                x -= 10;
-            } else { // x == 250 && y > 50
-                y -= 10;
+        case 4: // T4 (Loop Top-Right) - DUPLICADA
+            if (y == 100 && x < 700) {
+                x += 20;
+            } else if (x == 700 && y < 300) {
+                y += 20;
+            } else if (y == 300 && x > 500) {
+                x -= 20;
+            } else { // x == 500 && y > 100
+                y -= 20;
             }
             emit updateGUI(ID, x,y);
             msleep(velocidade);
             break;
 
-        case 5: // T5 (Loop Top-Mid)
-            if (y == 50 && x < 250) {
-                x += 10;
-            } else if (x == 250 && y < 150) {
-                y += 10;
-            } else if (y == 150 && x > 150) {
-                x -= 10;
-            } else { // x == 150 && y > 50
-                y -= 10;
+        case 5: // T5 (Loop Top-Mid) - DUPLICADA
+            if (y == 100 && x < 500) {
+                x += 20;
+            } else if (x == 500 && y < 300) {
+                y += 20;
+            } else if (y == 300 && x > 300) {
+                x -= 20;
+            } else { // x == 300 && y > 100
+                y -= 20;
             }
             emit updateGUI(ID, x,y);
             msleep(velocidade);
             break;
 
-        case 6: // T6 (Perímetro) - LÓGICA CORRIGIDA (Sentido Anti-Horário)
-            if (y == 50 && x > 50) {
-                x -= 10;
-            } else if (x == 50 && y < 250) {
-                y += 10;
-            } else if (y == 250 && x < 350) {
-                x += 10;
-            } else { // x == 350 && y > 50
-                y -= 10;
+        case 6: // T6 (Perímetro) - LÓGICA CORRIGIDA E DUPLICADA
+            if (y == 100 && x > 100) {
+                x -= 20;
+            } else if (x == 100 && y < 500) {
+                y += 20;
+            } else if (y == 500 && x < 700) {
+                x += 20;
+            } else { // x == 700 && y > 100
+                y -= 20;
             }
             emit updateGUI(ID, x,y);
             msleep(velocidade);
