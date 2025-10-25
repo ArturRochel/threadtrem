@@ -2,7 +2,7 @@
 #define TREM_H
 
 #include <QThread>
-
+#include <mutex>
 /*
  * Classe Trem herda QThread
  * Classe Trem passa a ser uma thread.
@@ -14,8 +14,20 @@ class Trem: public QThread{
  Q_OBJECT
 public:
     Trem(int,int,int);  //construtor
-    void run();         //função a ser executada pela thread
-
+    void run(); // Método para os trens andarem
+    // Mutexes para controlar cada um dos pontos críticos
+    static std::mutex mtxTrecho01;
+    static std::mutex mtxTrecho02;
+    static std::mutex mtxTrecho03;
+    static std::mutex mtxTrecho04;
+    static std::mutex mtxTrecho05;
+    static std::mutex mtxTrecho06;
+    static std::mutex mtxTrecho07;
+    static std::mutex mtxTrecho08;
+    static std::mutex mtxTrecho09;
+    static std::mutex mtxTrecho10;
+    static std::mutex mtxTrecho11;
+    static std::mutex mtxTrecho12;
 
 //Cria um sinal
 signals:
@@ -26,7 +38,6 @@ private:
    int y;           //posição Y do trem na tela
    int ID;          //ID do trem
    int velocidade;  //Velocidade. É o tempo de dormir em milisegundos entre a mudança de posição do trem
-   void regiaoCritica(int ID);  // declarando região critica aqui para ter acesso ao ID, x e y do trem
 };
 
 
