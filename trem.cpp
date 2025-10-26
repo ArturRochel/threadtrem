@@ -9,18 +9,18 @@ Trem::Trem(int ID, int x, int y){
     velocidade = 100;
 }
 
-// std::mutex Trem::mutex mtxTrecho01;
-// std::mutex Trem::mutex mtxTrecho02;
-// std::mutex Trem::mutex mtxTrecho03;
-// std::mutex Trem::mutex mtxTrecho04;
-// std::mutex Trem::mutex mtxTrecho05;
-// std::mutex Trem::mutex mtxTrecho06;
-// std::mutex Trem::mutex mtxTrecho07;
-// std::mutex Trem::mutex mtxTrecho08;
-// std::mutex Trem::mutex mtxTrecho09;
-// std::mutex Trem::mutex mtxTrecho10;
-// std::mutex Trem::mutex mtxTrecho11;
-// std::mutex Trem::mutex mtxTrecho12;
+// std::mutex Trem::mtxTrecho01;
+// std::mutex Trem::mtxTrecho02;
+// std::mutex Trem::mtxTrecho03;
+// std::mutex Trem::mtxTrecho04;
+// std::mutex Trem::mtxTrecho05;
+// std::mutex Trem::mtxTrecho06;
+// std::mutex Trem::mtxTrecho07;
+// std::mutex Trem::mtxTrecho08;
+// std::mutex Trem::mtxTrecho09;
+// std::mutex Trem::mtxTrecho10;
+// std::mutex Trem::mtxTrecho11;
+// std::mutex Trem::mtxTrecho12;
  
 
 void Trem::run(){
