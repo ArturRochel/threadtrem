@@ -8,12 +8,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     //Cria o trem com seu (ID, posição X, posição Y)
-    trem1 = new Trem(1,50,50);
-    trem2 = new Trem(2,50,150);
-    trem3 = new Trem(3,200,150);  // ADICIONANDO OS TRENS
-    trem4 = new Trem(4,250,50);
-    trem5 = new Trem(5,150,50);
-    trem6 = new Trem(6,50,250);
+    trem1 = new Trem(1,100,300);
+    trem2 = new Trem(2,400,500);
+    trem3 = new Trem(3,400,300);  // ADICIONANDO OS TRENS
+    trem4 = new Trem(4,500,100);
+    trem5 = new Trem(5,300,100);
+    trem6 = new Trem(6,700,500);
     /*
      * Conecta o sinal UPDATEGUI à função UPDATEINTERFACE.
      * Ou seja, sempre que o sinal UPDATEGUI foi chamado, será executada a função UPDATEINTERFACE.
@@ -39,23 +39,24 @@ MainWindow::MainWindow(QWidget *parent) :
 //Função que será executada quando o sinal UPDATEGUI for emitido
 void MainWindow::updateInterface(int id, int x, int y){
     switch(id){
+    // ATUALIZANDO TAMANHO DOS LABELS (de 21,17 para 42,34)
     case 1: //Atualiza a posição do objeto da tela (quadrado) que representa o trem1
-        ui->label_trem1->setGeometry(x,y,21,17);
+        ui->label_trem1->setGeometry(x,y,42,34);
         break;
     case 2: //Atualiza a posição do objeto da tela (quadrado) que representa o trem2
-        ui->label_trem2->setGeometry(x,y,21,17);
+        ui->label_trem2->setGeometry(x,y,42,34);
         break;
     case 3:
-        ui->label_trem3->setGeometry(x,y,21,17);
+        ui->label_trem3->setGeometry(x,y,42,34);
         break;
     case 4:
-        ui->label_trem4->setGeometry(x,y,21,17);
+        ui->label_trem4->setGeometry(x,y,42,34);
         break;
     case 5:
-        ui->label_trem5->setGeometry(x,y,21,17);
+        ui->label_trem5->setGeometry(x,y,42,34);
         break;
     case 6:
-        ui->label_trem6->setGeometry(x,y,21,17);
+        ui->label_trem6->setGeometry(x,y,42,34);
          break;
     default:
         break;

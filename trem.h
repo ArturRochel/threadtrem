@@ -14,7 +14,8 @@ class Trem: public QThread{
  Q_OBJECT
 public:
     Trem(int,int,int);  //construtor
-    void run();  
+    void run(); // Método para os trens andarem
+    // Mutexes para controlar cada um dos pontos críticos
     static std::mutex mtxTrecho01;
     static std::mutex mtxTrecho02;
     static std::mutex mtxTrecho03;
