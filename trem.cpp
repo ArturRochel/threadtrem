@@ -26,12 +26,17 @@ Trem::Trem(int ID, int x, int y){
 void Trem::run(){
     while(true){
         switch(ID){
-
-        case 1: // Trem 1 - VERDE -(bloco superior esquerdo)
-            if (y == 100 && x < 300) { // movimenta para a direita
+            
+            case 1: // Trem 1 - VERDE -(bloco superior esquerdo)
+            if(x == 100 && y > 100) {
                 //std::lock_guard<std::mutex> guard(Trem::mtxTrecho01); // Mutex que protege o trecho 01
+                while(y > 100){
+                    y -= 20; // movimenta para cima
+                    emit updateGUI(ID, x,y);
+                    msleep(velocidade);
+                }
                 while(x < 300){
-                    x += 20;
+                    x += 20; // movimenta para direita
                     emit updateGUI(ID, x,y);
                     msleep(velocidade);
                 }
@@ -49,16 +54,7 @@ void Trem::run(){
                     emit updateGUI(ID, x,y);
                     msleep(velocidade);
                 }
-            } else { // x == 100 && y > 100 // movimenta para cima
-                //std::lock_guard<std::mutex> guard(Trem::mtxTrecho01); // Mutex que protege o trecho 01
-                while(y > 100){
-                    y -= 20;
-                    emit updateGUI(ID, x,y);
-                    msleep(velocidade);
-                }
             }
-            
-            
             break;
 
         case 2: // Trem 2 - LARANJA - (bloco inferior esquerdo)
@@ -83,8 +79,6 @@ void Trem::run(){
                     emit updateGUI(ID, x, y);
                     msleep(velocidade);
                 }
-            } else { // x == 100 && y > 300 // movimenta para cima
-                //std::lock_guard<std::mutex> guard(Trem::mtxTrecho12); // Mutex para proteger trecho 12
                 while(y > 300){
                     y -= 20;
                     emit updateGUI(ID, x, y);
@@ -108,7 +102,6 @@ void Trem::run(){
                     emit updateGUI(ID, x, y);
                     msleep(velocidade);
                 }
-            } else if (y == 500 && x > 400) { // movimenta para esquerda
                 //std::lock_guard<std::mutex> guard(Trem::mtxTrecho10); // Mutex para proteger trecho 10
                 while(x > 400){
                     x -= 20;
@@ -133,10 +126,9 @@ void Trem::run(){
                     emit updateGUI(ID, x, y);
                     msleep(velocidade);
                 }
-            } else if (x == 700 && y < 300) { // movimenta para baixo
                 //std::lock_guard<std::mutex> guard(Trem::mtxTrecho07); // Mutex para proteger trecho 07
                 while(y < 300){
-                    y += 20;
+                    y += 20; // movimenta para baixo
                     emit updateGUI(ID, x, y);
                     msleep(velocidade);
                 }
