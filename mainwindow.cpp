@@ -33,6 +33,25 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(trem6,SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
 
 
+    // Controle de velocidade dos trens em tempo de execução com controle por slide
+    connect(ui->sliderTrem1, &QSlider::valueChanged, this, [=](int value){
+    trem1->setVelocidade(value);
+    });
+    connect(ui->sliderTrem2, &QSlider::valueChanged, this, [=](int value){
+    trem2->setVelocidade(value);
+    });
+    connect(ui->sliderTrem3, &QSlider::valueChanged, this, [=](int value){
+    trem3->setVelocidade(value);
+    });
+    connect(ui->sliderTrem4, &QSlider::valueChanged, this, [=](int value){
+    trem4->setVelocidade(value);
+    });
+    connect(ui->sliderTrem5, &QSlider::valueChanged, this, [=](int value){
+    trem5->setVelocidade(value);
+    });
+    connect(ui->sliderTrem6, &QSlider::valueChanged, this, [=](int value){
+    trem6->setVelocidade(value);
+    });
 
 }
 
