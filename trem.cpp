@@ -9,6 +9,12 @@ Trem::Trem(int ID, int x, int y){
     velocidade = 150;
 }
 
+
+void Trem::setVelocidade(int velocidadeDoTrem) {
+    this->velocidade = velocidadeDoTrem;
+}
+
+
 std::mutex Trem::mtxTrecho01;
 std::mutex Trem::mtxTrecho02;
 std::mutex Trem::mtxTrecho03;
@@ -71,6 +77,7 @@ void Trem::run(){
                 }
                 lock.unlock();
                 std::lock_guard<std::mutex> guard(Trem::mtxTrecho05);
+
                 while(x < 400){
                     x += 20;
                     emit updateGUI(ID, x, y);
@@ -112,6 +119,7 @@ void Trem::run(){
                 }
                 lock.unlock();
                 std::lock_guard<std::mutex> guard(Trem::mtxTrecho09);
+
                 while(x < 700){
                     x += 20;
                     emit updateGUI(ID, x, y);
@@ -197,6 +205,7 @@ void Trem::run(){
                 }
                 lock.unlock();
                 std::lock_guard<std::mutex> guard(Trem::mtxTrecho05); // Mutex para proteger trecho 05
+
                 while(x > 300){
                     x -= 20;
                     emit updateGUI(ID, x, y);
