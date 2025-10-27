@@ -24,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
      */
 
 
-    // ADICIONANDO OS TRENS PARA ATUALIZAR nA TELA
+    // ADICIONANDO OS TRENS PARA ATUALIZAR NA TELA
     connect(trem1,SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
     connect(trem2,SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
     connect(trem3,SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
@@ -52,6 +52,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->sliderTrem6, &QSlider::valueChanged, this, [=](int value){
     trem6->setVelocidade(value);
     });
+
 
 }
 

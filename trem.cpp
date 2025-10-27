@@ -6,12 +6,14 @@ Trem::Trem(int ID, int x, int y){
     this->ID = ID;
     this->x = x;
     this->y = y;
-    velocidade = 100;
+    velocidade = 150;
 }
+
 
 void Trem::setVelocidade(int velocidadeDoTrem) {
     this->velocidade = velocidadeDoTrem;
 }
+
 
 std::mutex Trem::mtxTrecho01;
 std::mutex Trem::mtxTrecho02;
@@ -63,7 +65,19 @@ void Trem::run(){
 
         case 2: // Trem 2 - LARANJA - (bloco inferior esquerdo)
             if (y == 300 && x < 400) { // movimenta para a direita
-                std::scoped_lock locks(Trem::mtxTrecho02, Trem::mtxTrecho05); // Mutex para proteger primeiro o trecho 02 e depois o trecho 05
+                std::unique_lock<std::mutex> lock(Trem::mtxTrecho02, std::defer_lock); // Mutex para proteger primeiro o trecho 02 e depois o trecho 05
+                lock.lock();
+                while(x < 400){
+                    x += 20;
+                    emit updateGUI(ID, x, y);
+                    msleep(velocidade);
+                    if(x == 300){
+                        break;
+                    }
+                }
+                lock.unlock();
+                std::lock_guard<std::mutex> guard(Trem::mtxTrecho05);
+
                 while(x < 400){
                     x += 20;
                     emit updateGUI(ID, x, y);
@@ -93,7 +107,19 @@ void Trem::run(){
 
         case 3: // Trem 3 - ROXO - (bloco inferior direito)
             if (y == 300 && x < 700) { // movimenta para a direita
-                std::scoped_lock locks(Trem::mtxTrecho06, Trem::mtxTrecho09); // Mutex para proteger primeiro o trecho 06 e depois o trecho 09
+                std::unique_lock<std::mutex> lock(Trem::mtxTrecho06, std::defer_lock);  // Mutex para proteger primeiro o trecho 06 e depois o trecho 09. Ainda não guarda
+                lock.lock();
+                while(x < 700){
+                    x += 20;
+                    emit updateGUI(ID, x, y);
+                    msleep(velocidade);
+                    if(x == 500){
+                        break;
+                    }
+                }
+                lock.unlock();
+                std::lock_guard<std::mutex> guard(Trem::mtxTrecho09);
+
                 while(x < 700){
                     x += 20;
                     emit updateGUI(ID, x, y);
@@ -127,26 +153,26 @@ void Trem::run(){
                 while(x < 700){
                     x += 20;
                     emit updateGUI(ID, x, y);
-                    msleep(velocidade);
+                    msleep(50);
                 }
                 while(y < 300){
                     y += 20; // movimenta para baixo
                     emit updateGUI(ID, x, y);
-                    msleep(velocidade);
+                    msleep(50);
                 }
             } else if (y == 300 && x > 500) { // movimenta para esquerda
                 std::lock_guard<std::mutex> guard(Trem::mtxTrecho09); // Mutex para proteger trecho 09
                 while(x > 500){
                     x -= 20;
                     emit updateGUI(ID, x, y);
-                    msleep(velocidade);
+                    msleep(50);
                 }
             } else { // x == 500 && y > 100 // movimenta para cima
                 std::lock_guard<std::mutex> guard(Trem::mtxTrecho08); // Mutex para proteger trecho 08
                 while(y > 100){
                     y -= 20;
                     emit updateGUI(ID, x, y);
-                    msleep(velocidade);
+                    msleep(50);
                 }
             }
             break;
@@ -167,7 +193,19 @@ void Trem::run(){
                     msleep(velocidade);
                 }
             } else if (y == 300 && x > 300) { // movimenta para esquerda
-                std::scoped_lock locks(Trem::mtxTrecho06, Trem::mtxTrecho05); // Mutex para proteger trecho 06 e 05
+               std::unique_lock<std::mutex> lock(Trem::mtxTrecho06, std::defer_lock); // Mutex para proteger trecho 06. Não trava ainda
+               lock.lock();
+                while(x > 300){
+                    x -= 20;
+                    emit updateGUI(ID, x, y);
+                    msleep(velocidade);
+                    if(x == 400){
+                        break;
+                    }
+                }
+                lock.unlock();
+                std::lock_guard<std::mutex> guard(Trem::mtxTrecho05); // Mutex para proteger trecho 05
+
                 while(x > 300){
                     x -= 20;
                     emit updateGUI(ID, x, y);
