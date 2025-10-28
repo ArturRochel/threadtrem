@@ -61,6 +61,14 @@ MainWindow::MainWindow(QWidget *parent) :
     });
 
 
+    // colocando aqui para inicair os trens assim que o programa é iniciado
+    trem1->start();
+    trem2->start();
+    trem3->start();
+    trem4->start();
+    trem5->start();
+    trem6->start();
+
 }
 
 //Função que será executada quando o sinal UPDATEGUI for emitido
@@ -93,30 +101,4 @@ void MainWindow::updateInterface(int id, int x, int y){
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-/*
- * Ao clicar, trens começam execução
- */
-void MainWindow::on_pushButton_clicked()
-{
-    trem1->start();
-    trem2->start();
-    trem3->start();
-    trem4->start();
-    trem5->start();
-    trem6->start();
-}
-
-/*
- * Ao clicar, trens param execução
- */
-void MainWindow::on_pushButton_2_clicked()
-{
-    trem1->terminate();
-    trem2->terminate();
-    trem3->terminate();
-    trem4->terminate();
-    trem5->terminate();
-    trem6->terminate();
 }
