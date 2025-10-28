@@ -270,7 +270,8 @@
      <string>Parar</string>
     </property>
    </widget>
-
+<!-- SLIDES DE VELOCIDADE A PARTIR DAQUI -->
+<!-- SLIDE TREM01 -->
     <widget class="QSlider" name="sliderTrem1">
     <property name="geometry">
   <rect>
@@ -280,11 +281,21 @@
    <height>22</height>
   </rect>
  </property>
+ <property name="minimum">
+ <number>0</number>
+ </property>
+ <property name="maximum">
+ <number>200</number>
+ </property>
+  <property name="value">
+  <number>50</number> 
+ </property>
  <property name="orientation">
   <enum>Qt::Horizontal</enum>
  </property>
 </widget>
 
+<!-- SLIDE TREM02 -->
 <widget class="QSlider" name="sliderTrem2">
  <property name="geometry">
   <rect>
@@ -294,11 +305,21 @@
    <height>22</height>
   </rect>
  </property>
+  <property name="minimum">
+ <number>0</number>
+ </property>
+ <property name="maximum">
+ <number>200</number>
+ </property>
+   <property name="value">
+  <number>50</number> 
+ </property>
  <property name="orientation">
   <enum>Qt::Horizontal</enum>
  </property>
 </widget>
 
+<!-- SLIDE TREM03 -->
 <widget class="QSlider" name="sliderTrem3">
  <property name="geometry">
   <rect>
@@ -308,11 +329,21 @@
    <height>22</height>
   </rect>
  </property>
+  <property name="minimum">
+ <number>0</number>
+ </property>
+ <property name="maximum">
+ <number>200</number>
+ </property>
+   <property name="value">
+  <number>50</number> 
+ </property>
  <property name="orientation">
   <enum>Qt::Horizontal</enum>
  </property>
 </widget>
 
+<!-- SLIDE TREM04 -->
 <widget class="QSlider" name="sliderTrem4">
  <property name="geometry">
   <rect>
@@ -322,11 +353,21 @@
    <height>22</height>
   </rect>
  </property>
+  <property name="minimum">
+ <number>0</number>
+ </property>
+ <property name="maximum">
+ <number>200</number>
+ </property>
+   <property name="value">
+  <number>50</number> 
+ </property>
  <property name="orientation">
   <enum>Qt::Horizontal</enum>
  </property>
 </widget>
 
+<!-- SLIDE TREM05 -->
 <widget class="QSlider" name="sliderTrem5">
  <property name="geometry">
   <rect>
@@ -336,11 +377,21 @@
    <height>22</height>
   </rect>
  </property>
+  <property name="minimum">
+ <number>0</number>
+ </property>
+ <property name="maximum">
+ <number>200</number>
+ </property>
+   <property name="value">
+  <number>50</number> 
+ </property>
  <property name="orientation">
   <enum>Qt::Horizontal</enum>
  </property>
 </widget>
 
+<!-- SLIDE TREM06 -->
 <widget class="QSlider" name="sliderTrem6">
  <property name="geometry">
   <rect>
@@ -349,6 +400,15 @@
    <width>100</width>
    <height>22</height>
   </rect>
+ </property>
+  <property name="minimum">
+ <number>0</number>
+ </property>
+ <property name="maximum">
+ <number>200</number>
+ </property>
+   <property name="value">
+  <number>50</number> 
  </property>
  <property name="orientation">
   <enum>Qt::Horizontal</enum>

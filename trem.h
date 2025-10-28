@@ -16,6 +16,7 @@ public:
     Trem(int,int,int);  //construtor
     void run(); // Método para os trens andarem
     void setVelocidade(int velocidadeDoTrem); // Método para alterar a velocidade em tempo de execução
+    int getDelay() const; // Devolve a conversão de velocidade em tempo de espera
     // Mutexes para controlar cada um dos pontos críticos
     static std::mutex mtxTrecho01;
     static std::mutex mtxTrecho02;
