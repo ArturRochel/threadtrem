@@ -424,7 +424,15 @@ void Trem::run(){
                     while(x > 100) {
                         x -= 20;
                         emit updateGUI(ID, x, y);
-                        msleep(velocidade);
+                        int delay = getDelay();
+                        if (delay < 0) {
+                            // Trem parado — congela mantendo posição e mutexes
+                            while (velocidade <= 0) {
+                                msleep(10); // dorme um pouquinho, só pra não travar a CPU
+                            }
+                        } else {
+                            msleep(delay); // anda normalmente conforme a "velocidade"
+                        }
                         if(x == 500) {
                             break;
                         }
@@ -436,7 +444,15 @@ void Trem::run(){
                     while(x > 100) {
                         x -= 20;
                         emit updateGUI(ID, x, y);
-                        msleep(velocidade);
+                        int delay = getDelay();
+                        if (delay < 0) {
+                            // Trem parado — congela mantendo posição e mutexes
+                            while (velocidade <= 0) {
+                                msleep(10); // dorme um pouquinho, só pra não travar a CPU
+                            }
+                        } else {
+                            msleep(delay); // anda normalmente conforme a "velocidade"
+                        }
                         if(x == 300) {
                             break;
                         }
@@ -448,7 +464,15 @@ void Trem::run(){
                     while(x > 100) {
                         x -= 20;
                         emit updateGUI(ID, x, y);
-                        msleep(velocidade);
+                        int delay = getDelay();
+                        if (delay < 0) {
+                            // Trem parado — congela mantendo posição e mutexes
+                            while (velocidade <= 0) {
+                                msleep(10); // dorme um pouquinho, só pra não travar a CPU
+                            }
+                        } else {
+                            msleep(delay); // anda normalmente conforme a "velocidade"
+                        }
                     }
                 }
 
@@ -458,7 +482,15 @@ void Trem::run(){
                     while(y < 500){
                         y += 20;
                         emit updateGUI(ID, x, y);
-                        msleep(velocidade);
+                        int delay = getDelay();
+                        if (delay < 0) {
+                            // Trem parado — congela mantendo posição e mutexes
+                            while (velocidade <= 0) {
+                                msleep(10); // dorme um pouquinho, só pra não travar a CPU
+                            }
+                        } else {
+                            msleep(delay); // anda normalmente conforme a "velocidade"
+                        }
                         if(y == 300) {
                             break;
                         }
@@ -470,7 +502,15 @@ void Trem::run(){
                     while(y < 500) {
                         y += 20;
                         emit updateGUI(ID, x, y);
-                        msleep(velocidade);
+                        int delay = getDelay();
+                        if (delay < 0) {
+                            // Trem parado — congela mantendo posição e mutexes
+                            while (velocidade <= 0) {
+                                msleep(10); // dorme um pouquinho, só pra não travar a CPU
+                            }
+                        } else {
+                            msleep(delay); // anda normalmente conforme a "velocidade"
+                        }
                         if(y == 500) {
                             break;
                         }
@@ -483,7 +523,15 @@ void Trem::run(){
                     while(x < 700){
                         x += 20;
                         emit updateGUI(ID, x, y);
-                        msleep(velocidade);
+                        int delay = getDelay();
+                        if (delay < 0) {
+                            // Trem parado — congela mantendo posição e mutexes
+                            while (velocidade <= 0) {
+                                msleep(10); // dorme um pouquinho, só pra não travar a CPU
+                            }
+                        } else {
+                            msleep(delay); // anda normalmente conforme a "velocidade"
+                        }
                         if(x == 400) {
                             break;
                         }
@@ -495,7 +543,15 @@ void Trem::run(){
                     while(x < 700) {
                         x += 20;
                         emit updateGUI(ID, x, y);
-                        msleep(velocidade);
+                        int delay = getDelay();
+                        if (delay < 0) {
+                            // Trem parado — congela mantendo posição e mutexes
+                            while (velocidade <= 0) {
+                                msleep(10); // dorme um pouquinho, só pra não travar a CPU
+                            }
+                        } else {
+                            msleep(delay); // anda normalmente conforme a "velocidade"
+                        }
                         if(x == 700) {
                             break;
                         }
@@ -510,7 +566,15 @@ void Trem::run(){
                     while(y > 100){
                         y -= 20;
                         emit updateGUI(ID, x, y);
-                        msleep(velocidade);
+                        int delay = getDelay();
+                        if (delay < 0) {
+                            // Trem parado — congela mantendo posição e mutexes
+                            while (velocidade <= 0) {
+                                msleep(10); // dorme um pouquinho, só pra não travar a CPU
+                            }
+                        } else {
+                            msleep(delay); // anda normalmente conforme a "velocidade"
+                        }
                         if(y == 300) {
                             break;
                         }
@@ -523,7 +587,15 @@ void Trem::run(){
                     while(y > 100) {
                         y -= 20;
                         emit updateGUI(ID, x, y);
-                        msleep(velocidade);
+                        int delay = getDelay();
+                        if (delay < 0) {
+                            // Trem parado — congela mantendo posição e mutexes
+                            while (velocidade <= 0) {
+                                msleep(10); // dorme um pouquinho, só pra não travar a CPU
+                            }
+                        } else {
+                            msleep(delay); // anda normalmente conforme a "velocidade"
+                        }
                         if(y == 100) {
                             break;
                         }
