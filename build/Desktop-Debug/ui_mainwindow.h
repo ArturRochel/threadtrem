@@ -14,7 +14,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
-#include <QtWidgets/QPushButton>
+#include <QtWidgets/QSlider>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
@@ -39,8 +39,12 @@ public:
     QLabel *label_trem4;
     QLabel *label_trem5;
     QLabel *label_trem6;
-    QPushButton *pushButton;
-    QPushButton *pushButton_2;
+    QSlider *sliderTrem1;
+    QSlider *sliderTrem2;
+    QSlider *sliderTrem3;
+    QSlider *sliderTrem4;
+    QSlider *sliderTrem5;
+    QSlider *sliderTrem6;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -86,12 +90,12 @@ public:
         label_trilho_bot_M->setStyleSheet(QString::fromUtf8("QLabel { background: yellow}"));
         label_trem1 = new QLabel(centralWidget);
         label_trem1->setObjectName("label_trem1");
-        label_trem1->setGeometry(QRect(100, 100, 42, 34));
+        label_trem1->setGeometry(QRect(100, 300, 42, 34));
         label_trem1->setStyleSheet(QString::fromUtf8("QLabel { background: #5BC724;\n"
 " color: black}"));
         label_trem2 = new QLabel(centralWidget);
         label_trem2->setObjectName("label_trem2");
-        label_trem2->setGeometry(QRect(100, 300, 42, 34));
+        label_trem2->setGeometry(QRect(400, 500, 42, 34));
         label_trem2->setStyleSheet(QString::fromUtf8("QLabel { background: #F0820A;\n"
 " color: black}"));
         label_trem3 = new QLabel(centralWidget);
@@ -111,16 +115,40 @@ public:
 " color: black}"));
         label_trem6 = new QLabel(centralWidget);
         label_trem6->setObjectName("label_trem6");
-        label_trem6->setGeometry(QRect(100, 500, 42, 34));
+        label_trem6->setGeometry(QRect(700, 500, 42, 34));
         label_trem6->setStyleSheet(QString::fromUtf8("QLabel { background: black;\n"
 " color: white}"));
-        pushButton = new QPushButton(centralWidget);
-        pushButton->setObjectName("pushButton");
-        pushButton->setGeometry(QRect(240, 600, 198, 54));
-        pushButton_2 = new QPushButton(centralWidget);
-        pushButton_2->setObjectName("pushButton_2");
-        pushButton_2->setGeometry(QRect(460, 600, 196, 54));
+        sliderTrem1 = new QSlider(centralWidget);
+        sliderTrem1->setObjectName("sliderTrem1");
+        sliderTrem1->setGeometry(QRect(100, 680, 100, 22));
+        sliderTrem1->setOrientation(Qt::Orientation::Horizontal);
+        sliderTrem2 = new QSlider(centralWidget);
+        sliderTrem2->setObjectName("sliderTrem2");
+        sliderTrem2->setGeometry(QRect(220, 680, 100, 22));
+        sliderTrem2->setOrientation(Qt::Orientation::Horizontal);
+        sliderTrem3 = new QSlider(centralWidget);
+        sliderTrem3->setObjectName("sliderTrem3");
+        sliderTrem3->setGeometry(QRect(340, 680, 100, 22));
+        sliderTrem3->setOrientation(Qt::Orientation::Horizontal);
+        sliderTrem4 = new QSlider(centralWidget);
+        sliderTrem4->setObjectName("sliderTrem4");
+        sliderTrem4->setGeometry(QRect(480, 680, 100, 22));
+        sliderTrem4->setOrientation(Qt::Orientation::Horizontal);
+        sliderTrem5 = new QSlider(centralWidget);
+        sliderTrem5->setObjectName("sliderTrem5");
+        sliderTrem5->setGeometry(QRect(500, 680, 100, 22));
+        sliderTrem5->setOrientation(Qt::Orientation::Horizontal);
+        sliderTrem6 = new QSlider(centralWidget);
+        sliderTrem6->setObjectName("sliderTrem6");
+        sliderTrem6->setGeometry(QRect(620, 680, 100, 22));
+        sliderTrem6->setOrientation(Qt::Orientation::Horizontal);
         MainWindow->setCentralWidget(centralWidget);
+        sliderTrem1->raise();
+        sliderTrem2->raise();
+        sliderTrem3->raise();
+        sliderTrem4->raise();
+        sliderTrem5->raise();
+        sliderTrem6->raise();
         label_trilho_top->raise();
         label_trilho_mid->raise();
         label_trilho_bot->raise();
@@ -129,8 +157,6 @@ public:
         label_trilho_top_L->raise();
         label_trilho_top_R->raise();
         label_trilho_bot_M->raise();
-        pushButton->raise();
-        pushButton_2->raise();
         label_trem1->raise();
         label_trem2->raise();
         label_trem3->raise();
@@ -170,8 +196,6 @@ public:
         label_trem4->setText(QCoreApplication::translate("MainWindow", "T4", nullptr));
         label_trem5->setText(QCoreApplication::translate("MainWindow", "T5", nullptr));
         label_trem6->setText(QCoreApplication::translate("MainWindow", "T6", nullptr));
-        pushButton->setText(QCoreApplication::translate("MainWindow", "Ligar", nullptr));
-        pushButton_2->setText(QCoreApplication::translate("MainWindow", "Parar", nullptr));
     } // retranslateUi
 
 };
