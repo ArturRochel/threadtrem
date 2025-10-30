@@ -7,6 +7,146 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ui->sliderTrem1->setStyleSheet( // Nome corrigido
+        "QSlider::groove:horizontal {"
+        "    border: 1px solid #bbb;"
+        "    background: white;"
+        "    height: 5px;"
+        "    border-radius: 4px;"
+        "}"
+        "QSlider::sub-page:horizontal {" // Barra de progresso (antes do marcador)
+        "    background: #5BC724; " // Cor verde
+        "    border: 1px solid #5BC724;"
+        "    height: 10px;"
+        "    border-radius: 4px;"
+        "}"
+        "QSlider::handle:horizontal {" // O marcador (bolinha)
+        "    background: #f0f0f0;"
+        "    border: 1px solid #777;"
+        "    width: 18px;"
+        "    margin-top: -4px;"      // Centraliza o marcador verticalmente
+        "    margin-bottom: -4px;"   // Centraliza o marcador verticalmente
+        "    border-radius: 9px;"
+        "}"
+    );
+
+    // --- Estilo para o Slider 2 (Azul) ---
+    ui->sliderTrem2->setStyleSheet( // Nome corrigido
+        "QSlider::groove:horizontal {"
+        "    border: 1px solid #bbb;"
+        "    background: white;"
+        "    height: 5px;"
+        "    border-radius: 4px;"
+        "}"
+        "QSlider::sub-page:horizontal {"
+        "    background: #F0820A; " // Cor azul
+        "    border: 1px solid #F0820A;"
+        "    height: 10px;"
+        "    border-radius: 4px;"
+        "}"
+        "QSlider::handle:horizontal {"
+        "    background: #f0f0f0;"
+        "    border: 1px solid #777;"
+        "    width: 18px;"
+        "    margin-top: -4px;"
+        "    margin-bottom: -4px;"
+        "    border-radius: 9px;"
+        "}"
+    );
+
+    // --- Estilo para o Slider 3 (Vermelho) ---
+    ui->sliderTrem3->setStyleSheet( // Nome corrigido
+        "QSlider::groove:horizontal {"
+        "    border: 1px solid #bbb;"
+        "    background: white;"
+        "    height: 5px;"
+        "    border-radius: 4px;"
+        "}"
+        "QSlider::sub-page:horizontal {"
+        "    background: #8B27F5; " // Cor vermelha
+        "    border: 1px solid #8B27F5;"
+        "    height: 10px;"
+        "    border-radius: 4px;"
+        "}"
+        "QSlider::handle:horizontal {"
+        "    background: #f0f0f0;"
+        "    border: 1px solid #777;"
+        "    width: 18px;"
+        "    margin-top: -4px;"
+        "    margin-bottom: -4px;"
+        "    border-radius: 9px;"
+        "}"
+    );
+
+    ui->sliderTrem4->setStyleSheet( // Nome corrigido
+        "QSlider::groove:horizontal {"
+        "    border: 1px solid #bbb;"
+        "    background: white;"
+        "    height: 5px;"
+        "    border-radius: 4px;"
+        "}"
+        "QSlider::sub-page:horizontal {"
+        "    background: #2779F5; " // Cor vermelha
+        "    border: 1px solid #2779F5;"
+        "    height: 10px;"
+        "    border-radius: 4px;"
+        "}"
+        "QSlider::handle:horizontal {"
+        "    background: #f0f0f0;"
+        "    border: 1px solid #777;"
+        "    width: 18px;"
+        "    margin-top: -4px;"
+        "    margin-bottom: -4px;"
+        "    border-radius: 9px;"
+        "}"
+    );
+
+    ui->sliderTrem5->setStyleSheet( // Nome corrigido
+        "QSlider::groove:horizontal {"
+        "    border: 1px solid #bbb;"
+        "    background: white;"
+        "    height: 5px;"
+        "    border-radius: 4px;"
+        "}"
+        "QSlider::sub-page:horizontal {"
+        "    background: #D60606; " // Cor vermelha
+        "    border: 1px solid #D60606;"
+        "    height: 10px;"
+        "    border-radius: 4px;"
+        "}"
+        "QSlider::handle:horizontal {"
+        "    background: #f0f0f0;"
+        "    border: 1px solid #777;"
+        "    width: 18px;"
+        "    margin-top: -4px;"
+        "    margin-bottom: -4px;"
+        "    border-radius: 9px;"
+        "}"
+    );
+
+    ui->sliderTrem6->setStyleSheet( 
+        "QSlider::groove:horizontal {"
+        "    border: 1px solid #bbb;"
+        "    background: white;"
+        "    height: 5px;"
+        "    border-radius: 4px;"
+        "}"
+        "QSlider::sub-page:horizontal {"
+        "    background: #000000; "
+        "    border: 1px solid #000000;"
+        "    height: 10px;"
+        "    border-radius: 4px;"
+        "}"
+        "QSlider::handle:horizontal {"
+        "    background: #f0f0f0;"
+        "    border: 1px solid #777;"
+        "    width: 18px;"
+        "    margin-top: -4px;"
+        "    margin-bottom: -4px;"
+        "    border-radius: 9px;"
+        "}"
+    );
+
     //Cria o trem com seu (ID, posição X, posição Y)
     trem1 = new Trem(1,100,300);
     trem2 = new Trem(2,400,500);
@@ -38,7 +178,7 @@ MainWindow::MainWindow(QWidget *parent) :
     trem3->setVelocidade(ui->sliderTrem3->value());
     trem4->setVelocidade(ui->sliderTrem4->value());
     trem5->setVelocidade(ui->sliderTrem5->value());
-    trem5->setVelocidade(ui->sliderTrem6->value());
+    trem6->setVelocidade(ui->sliderTrem6->value());
 
     // Controle de velocidade dos trens em tempo de execução com controle por slide
     connect(ui->sliderTrem1, &QSlider::valueChanged, this, [=](int value){
