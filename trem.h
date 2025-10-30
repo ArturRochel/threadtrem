@@ -54,6 +54,7 @@ private:
    int ID;          //ID do trem
    int velocidade;  //Velocidade. É o tempo de dormir em milisegundos entre a mudança de posição do trem
    void fazAndar(); //Método para atualizar a posição do trem com base na valocidade
+
 };
 
 
