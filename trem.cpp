@@ -22,6 +22,20 @@ int Trem::getDelay() const {
     return std::max(1, 201 - velocidade); // inversão: quanto maior a velocidade, menor o delay
 }
 
+void Trem::fazAndar() {
+    emit updateGUI(ID, x, y);
+
+    int delay = getDelay();
+
+    if (delay < 0) {
+        while (velocidade <= 0) {
+            msleep(10); 
+        }
+    } else {
+        msleep(delay); 
+    }
+}
+
 std::mutex Trem::mtxTrecho01;
 std::mutex Trem::mtxTrecho02;
 std::mutex Trem::mtxTrecho03;
@@ -45,59 +59,23 @@ void Trem::run(){
                 std::lock_guard<std::mutex> guard(Trem::mtxTrecho01); // Mutex que protege o trecho 01
                 while(y > 100){
                     y -= 20; // movimenta para cima
-                    emit updateGUI(ID, x,y);
-                    int delay = getDelay();
-                    if (delay < 0) {
-                    // Trem parado — congela mantendo posição e mutexes
-                    while (velocidade <= 0) {
-                        msleep(10); // dorme um pouquinho, só pra não travar a CPU
-                    }
-                    } else {
-                        msleep(delay); // anda normalmente conforme a "velocidade"
-                    }
+                    fazAndar();
                 }
                 while(x < 300){
                     x += 20; // movimenta para direita
-                    emit updateGUI(ID, x,y);
-                    int delay = getDelay();
-                    if (delay < 0) {
-                     // Trem parado — congela mantendo posição e mutexes
-                    while (velocidade <= 0) {
-                        msleep(10); // dorme um pouquinho, só pra não travar a CPU
-                    }
-                    } else {
-                        msleep(delay); // anda normalmente conforme a "velocidade"
-                    }
+                    fazAndar();
                 }
             } else if (x == 300 && y < 300) { // movimenta para baixo
                 std::lock_guard<std::mutex> guard(Trem::mtxTrecho03); // Mutex que protege o trecho 03
                 while(y < 300){
                     y += 20;
-                    emit updateGUI(ID, x,y);
-                    int delay = getDelay();
-                    if (delay < 0) {
-                    // Trem parado — congela mantendo posição e mutexes
-                        while (velocidade <= 0) {
-                            msleep(10); // dorme um pouquinho, só pra não travar a CPU
-                        }
-                    } else {
-                    msleep(delay); // anda normalmente conforme a "velocidade"
-                    }
+                    fazAndar();
                 }
             } else if (y == 300 && x > 100) { // movimenta para esquerda
                 std::lock_guard<std::mutex> guard(Trem::mtxTrecho02); // Mutex que protege o trecho 02
                 while(x > 100){
                     x -= 20;
-                    emit updateGUI(ID, x,y);
-                    int delay = getDelay();
-                    if (delay < 0) {
-                    // Trem parado — congela mantendo posição e mutexes
-                    while (velocidade <= 0) {
-                        msleep(10); // dorme um pouquinho, só pra não travar a CPU
-                    }
-                    } else {
-                        msleep(delay); // anda normalmente conforme a "velocidade"
-                    }
+                    fazAndar();
                 }
             }
             break;
@@ -108,16 +86,7 @@ void Trem::run(){
                 lock.lock();
                 while(x < 400){
                     x += 20;
-                    emit updateGUI(ID, x, y);
-                    int delay = getDelay();
-                    if (delay < 0) {
-                        // Trem parado — congela mantendo posição e mutexes
-                        while (velocidade <= 0) {
-                         msleep(10); // dorme um pouquinho, só pra não travar a CPU
-                        }
-                    } else {
-                        msleep(delay); // anda normalmente conforme a "velocidade"
-                    }
+                    fazAndar();
 
                     if(x == 300){
                         break;
@@ -128,59 +97,23 @@ void Trem::run(){
 
                 while(x < 400){
                     x += 20;
-                    emit updateGUI(ID, x, y);
-                    int delay = getDelay();
-                    if (delay < 0) {
-                        // Trem parado — congela mantendo posição e mutexes
-                        while (velocidade <= 0) {
-                            msleep(10); // dorme um pouquinho, só pra não travar a CPU
-                        }
-                    } else {
-                        msleep(delay); // anda normalmente conforme a "velocidade"
-                    }
+                    fazAndar();
                 }
             } else if (x == 400 && y < 500) { // movimenta para baixo
                 std::lock_guard<std::mutex> guard(Trem::mtxTrecho11); // Mutex para proteger trecho 11
                 while(y < 500){
                     y += 20;
-                    emit updateGUI(ID, x, y);
-                    int delay = getDelay();
-                    if (delay < 0) {
-                        // Trem parado — congela mantendo posição e mutexes
-                        while (velocidade <= 0) {
-                            msleep(10); // dorme um pouquinho, só pra não travar a CPU
-                        }
-                    } else {
-                        msleep(delay); // anda normalmente conforme a "velocidade"
-                    }
+                    fazAndar();
                 }
             } else if (y == 500 && x > 100) { // movimenta para esquerda
                 std::lock_guard<std::mutex> guard(Trem::mtxTrecho12); // Mutex para proteger trecho 12
                 while(x > 100){
                     x -= 20;
-                    emit updateGUI(ID, x, y);
-                    int delay = getDelay();
-                    if (delay < 0) {
-                        // Trem parado — congela mantendo posição e mutexes
-                        while (velocidade <= 0) {
-                            msleep(10); // dorme um pouquinho, só pra não travar a CPU
-                        }
-                    } else {
-                        msleep(delay); // anda normalmente conforme a "velocidade"
-                    }
+                    fazAndar();
                 }
                 while(y > 300){
                     y -= 20;
-                    emit updateGUI(ID, x, y);
-                    int delay = getDelay();
-                    if (delay < 0) {
-                        // Trem parado — congela mantendo posição e mutexes
-                        while (velocidade <= 0) {
-                            msleep(10); // dorme um pouquinho, só pra não travar a CPU
-                        }
-                    } else {
-                        msleep(delay); // anda normalmente conforme a "velocidade"
-                    }
+                    fazAndar();
                 }
             }
             break;
@@ -191,16 +124,8 @@ void Trem::run(){
                 lock.lock();
                 while(x < 700){
                     x += 20;
-                    emit updateGUI(ID, x, y);
-                    int delay = getDelay();
-                    if (delay < 0) {
-                        // Trem parado — congela mantendo posição e mutexes
-                        while (velocidade <= 0) {
-                            msleep(10); // dorme um pouquinho, só pra não travar a CPU
-                        }
-                    } else {
-                        msleep(delay); // anda normalmente conforme a "velocidade"
-                    }
+                    fazAndar();
+
                     if(x == 500){
                         break;
                     }
@@ -210,44 +135,17 @@ void Trem::run(){
 
                 while(x < 700){
                     x += 20;
-                    emit updateGUI(ID, x, y);
-                    int delay = getDelay();
-                    if (delay < 0) {
-                        // Trem parado — congela mantendo posição e mutexes
-                        while (velocidade <= 0) {
-                            msleep(10); // dorme um pouquinho, só pra não travar a CPU
-                        }
-                    } else {
-                        msleep(delay); // anda normalmente conforme a "velocidade"
-                    }
+                    fazAndar();
                 }
             } else if (x == 700 && y < 500) { // movimenta para baixo
                 std::lock_guard<std::mutex> guard(Trem::mtxTrecho10); // Mutex para proteger trecho 10
                 while(y < 500){
                     y += 20;
-                    emit updateGUI(ID, x, y);
-                    int delay = getDelay();
-                    if (delay < 0) {
-                        // Trem parado — congela mantendo posição e mutexes
-                        while (velocidade <= 0) {
-                            msleep(10); // dorme um pouquinho, só pra não travar a CPU
-                        }
-                    } else {
-                        msleep(delay); // anda normalmente conforme a "velocidade"
-                    }
+                    fazAndar();
                 }
                 while(x > 400){
                     x -= 20;
-                    emit updateGUI(ID, x, y);
-                    int delay = getDelay();
-                    if (delay < 0) {
-                        // Trem parado — congela mantendo posição e mutexes
-                        while (velocidade <= 0) {
-                            msleep(10); // dorme um pouquinho, só pra não travar a CPU
-                        }
-                    } else {
-                        msleep(delay); // anda normalmente conforme a "velocidade"
-                    }
+                    fazAndar();
                 }
             } else { // x == 400 && y > 300 // movimenta para cima
                 std::lock_guard<std::mutex> guard(Trem::mtxTrecho11); // Mutex para proteger trecho 11
@@ -268,326 +166,231 @@ void Trem::run(){
             break;
 
         case 4: // Trem 4 - AZUL -(bloco superior direito)
+            static bool trecho07Reservado = false; 
             if (y == 100 && x < 700) { // movimenta para a direita
-                std::lock_guard<std::mutex> guard(Trem::mtxTrecho07); // Mutex para proteger trecho 07
+                if(!trecho07Reservado) {
+                    mtxTrecho07.lock();
+                    trecho07Reservado = true;
+                }
+                
                 while(x < 700){
                     x += 20;
-                    emit updateGUI(ID, x, y);
-                    int delay = getDelay();
-                    if (delay < 0) {
-                        // Trem parado — congela mantendo posição e mutexes
-                        while (velocidade <= 0) {
-                            msleep(10); // dorme um pouquinho, só pra não travar a CPU
-                        }
-                    } else {
-                        msleep(delay); // anda normalmente conforme a "velocidade"
-                    }
+                    fazAndar();
                 }
-                while(y < 300){
-                    y += 20; // movimenta para baixo
-                    emit updateGUI(ID, x, y);
-                    int delay = getDelay();
-                    if (delay < 0) {
-                        // Trem parado — congela mantendo posição e mutexes
-                        while (velocidade <= 0) {
-                            msleep(10); // dorme um pouquinho, só pra não travar a CPU
-                        }
-                    } else {
-                        msleep(delay); // anda normalmente conforme a "velocidade"
-                    }
+                while(y < 260){ // BUFFER
+                    y += 20;
+                    fazAndar();
                 }
+                mtxTrecho09.lock();
+                while(y < 300) {
+                    y += 20;
+                    fazAndar();
+                }
+                while(x > 660) { // BUFFER
+                    x -= 20
+                    fazAndar();
+                }
+                mtxTrecho07.unlock();
+                trecho7Reservado = false
+
             } else if (y == 300 && x > 500) { // movimenta para esquerda
-                std::lock_guard<std::mutex> guard(Trem::mtxTrecho09); // Mutex para proteger trecho 09
-                while(x > 500){
+                while(x > 540){ // BUFFER
                     x -= 20;
-                    emit updateGUI(ID, x, y);
-                    int delay = getDelay();
-                    if (delay < 0) {
-                        // Trem parado — congela mantendo posição e mutexes
-                        while (velocidade <= 0) {
-                            msleep(10); // dorme um pouquinho, só pra não travar a CPU
-                        }
-                    } else {
-                        msleep(delay); // anda normalmente conforme a "velocidade"
-                    }
+                    fazAndar();
                 }
-            } else { // x == 500 && y > 100 // movimenta para cima
-                std::lock_guard<std::mutex> guard(Trem::mtxTrecho08); // Mutex para proteger trecho 08
-                while(y > 100){
+                mtxTrecho08.lock() 
+                while(x < 500){
+                    x -= 20;
+                    fazAndar();
+                }
+                while(y < 260) {
                     y -= 20;
-                    emit updateGUI(ID, x, y);
-                    int delay = getDelay();
-                    if (delay < 0) {
-                        // Trem parado — congela mantendo posição e mutexes
-                        while (velocidade <= 0) {
-                            msleep(10); // dorme um pouquinho, só pra não travar a CPU
-                        }
-                    } else {
-                        msleep(delay); // anda normalmente conforme a "velocidade"
-                    }
+                    fazAndar();
                 }
+                mtxTrecho09.unlock();
+            } else { // x == 500 && y > 100 // movimenta para cima
+                while(y > 140){
+                    y -= 20;
+                    fazAndar();
+                }
+                if (!trecho7Reservado) {
+                    mtxTrecho07.lock();
+                    trecho7Reservado = true;
+                }
+                
+                while(y > 100) {
+                    y -= 20;
+                    fazAndar();
+                }
+                while(x < 540) {
+                    x += 20;
+                    fazAndar();
+                }
+                mtxTrecho08.unlock();
             }
             break;
 
         case 5: // Trem 5 - VERMELHO -(bloco superior central)
-            if (y == 100 && x < 500) { // movimenta para a direita
-                std::lock_guard<std::mutex> guard(Trem::mtxTrecho04); // Mutex para proteger trecho 04
+            if (y == 100 && x < 500) { //! CORRIGIR ISSO AQUI
+                static bool trecho04Reservado = false; 
+            if (y == 100 && x < 700) { // movimenta para a direita
+                if(!trecho04Reservado) {
+                    mtxTrecho04.lock();
+                    trecho04Reservado = true;
+                }
+                while(x < 460){ // BUFFER
+                    x += 20;
+                    fazAndar();
+                }
+                mtxTrecho08.lock()
                 while(x < 500){
                     x += 20;
-                    emit updateGUI(ID, x, y);
-                    int delay = getDelay();
-                    if (delay < 0) {
-                        // Trem parado — congela mantendo posição e mutexes
-                        while (velocidade <= 0) {
-                            msleep(10); // dorme um pouquinho, só pra não travar a CPU
-                        }
-                    } else {
-                        msleep(delay); // anda normalmente conforme a "velocidade"
-                    }
-
+                    fazAndar();
                 }
-            } else if (x == 500 && y < 300) { // movimenta para baixo
-                std::lock_guard<std::mutex> guard(Trem::mtxTrecho08); // Mutex para proteger trecho 08
-                while(y < 300){
+                while(y < 140){
                     y += 20;
-                    emit updateGUI(ID, x, y);
-                    int delay = getDelay();
-                    if (delay < 0) {
-                        // Trem parado — congela mantendo posição e mutexes
-                        while (velocidade <= 0) {
-                            msleep(10); // dorme um pouquinho, só pra não travar a CPU
-                        }
-                    } else {
-                        msleep(delay); // anda normalmente conforme a "velocidade"
-                    }
-
+                    fazAndar();
                 }
+                mtxTrecho04.unlock();
+                trecho04Reservado = false;
+
+            } else if (x == 500 && y < 300) { // movimenta para baixo
+                while(y < 260){
+                    y += 20;
+                    fazAndar();
+                }
+                mtxTrecho06.lock();
+                while(y < 300) {
+                    y += 20;
+                    fazAndar();
+                }
+                while(x > 460) {
+                    x -= 20;
+                    fazAndar()
+                }
+                mtxTrecho08.unlock();
+                
             } else if (y == 300 && x > 300) { // movimenta para esquerda
-               std::unique_lock<std::mutex> lock(Trem::mtxTrecho06, std::defer_lock); // Mutex para proteger trecho 06. Não trava ainda
-               lock.lock();
-                while(x > 300){
+               while(x > 440) {
                     x -= 20;
-                    emit updateGUI(ID, x, y);
-                    int delay = getDelay();
-                    if (delay < 0) {
-                        // Trem parado — congela mantendo posição e mutexes
-                        while (velocidade <= 0) {
-                            msleep(10); // dorme um pouquinho, só pra não travar a CPU
-                        }
-                    } else {
-                        msleep(delay); // anda normalmente conforme a "velocidade"
-                    }
-
-                    if(x == 400){
-                        break;
-                    }
+                    fazAndar();
                 }
-                lock.unlock();
-                std::lock_guard<std::mutex> guard(Trem::mtxTrecho05); // Mutex para proteger trecho 05
-
-                while(x > 300){
+                mtxTrecho05.lock();
+                while(x > 360) {
                     x -= 20;
-                    emit updateGUI(ID, x, y);
-                    int delay = getDelay();
-                    if (delay < 0) {
-                        // Trem parado — congela mantendo posição e mutexes
-                        while (velocidade <= 0) {
-                            msleep(10); // dorme um pouquinho, só pra não travar a CPU
-                        }
-                    } else {
-                        msleep(delay); // anda normalmente conforme a "velocidade"
-                    }
+                    fazAndar();
                 }
-            } else { // x == 300 && y > 100 // movimenta para cima
-                std::lock_guard<std::mutex> guard(Trem::mtxTrecho03); // Mutex para proteger trecho 03
-                while(y > 100){
+                mtxTrecho06.unlock();
+                while(x > 340) {
+                    x -= 20;
+                    fazAndar();
+                }
+                mtxTrecho03.lock
+                while(x < 300) {
+                    x -= 20;
+                    fazAndar()
+                }
+                while(y < 260) {
                     y -= 20;
-                    emit updateGUI(ID, x, y);
-                    int delay = getDelay();
-                    if (delay < 0) {
-                        // Trem parado — congela mantendo posição e mutexes
-                        while (velocidade <= 0) {
-                            msleep(10); // dorme um pouquinho, só pra não travar a CPU
-                        }
-                    } else {
-                        msleep(delay); // anda normalmente conforme a "velocidade"
-                    }
-
+                    fazAndar();
+                }
+                mtxTrecho05.unlock();
+            } else { // x == 300 && y > 100 // movimenta para cima
+                while(y > 140){
+                    y -= 20;
+                    fazAndar();
+                }
+                if(!trecho04Reservado) {
+                    mtxTrecho04.lock();
+                    trecho04Reservado = true;
+                }
+                while( y < 100) {
+                    y -= 20;
+                    fazAndar();
                 }
             }
             break;
 
         case 6: // Trem 6 - PRETO - (bloco inteiro)
+        static bool trecho07Reservado = false; 
             if (y == 100 && x > 100) { // movimenta para a esquerda
-                std::unique_lock<std::mutex> lock(Trem::mtxTrecho07, std::defer_lock); // Mutex para proteger o trecho07
-                lock.lock();
+                if(!trecho07Reservado) {
+                    mtxTrecho07.lock();
+                    trecho07Reservado = true;
+                }
+                while(x > 540) {
+                    x -= 20;
+                    fazAndar();
+                }
+                mtxTrecho04.lock();
+                while(x > 460) {
+                    x -= 20;
+                    fazAndar();
+                }
+                mtxTrecho07.unlock();
+                trecho07Reservado = false;
+                while(x > 340) {
+                    x -= 20;
+                    fazAndar();
+                }
+                mtxTrecho01.lock();
+                while(x > 260) {
+                    x -= 20;
+                    fazAndar();
+                }
+                mtxTrecho04.unlock();
                 while(x > 100) {
                     x -= 20;
-                    emit updateGUI(ID, x, y);
-                    int delay = getDelay();
-                    if (delay < 0) {
-                        // Trem parado — congela mantendo posição e mutexes
-                        while (velocidade <= 0) {
-                            msleep(10); // dorme um pouquinho, só pra não travar a CPU
-                        }
-                    } else {
-                        msleep(delay); // anda normalmente conforme a "velocidade"
-                    }
-
-                    if(x == 500) {
-                        break;
-                    }
+                    fazAndar();
                 }
-                lock.unlock();
-                std::unique_lock<std::mutex> lock(Trem::mtxTrecho04, std::defer_lock) // Mutex para proteger o trecho04
-                lock.lock();
-                while(x > 100) {
-                    x -= 20;
-                    emit updateGUI(ID, x, y);
-                    int delay = getDelay();
-                    if (delay < 0) {
-                        // Trem parado — congela mantendo posição e mutexes
-                        while (velocidade <= 0) {
-                            msleep(10); // dorme um pouquinho, só pra não travar a CPU
-                        }
-                    } else {
-                        msleep(delay); // anda normalmente conforme a "velocidade"
-                    }
-
-                    if(x == 300) {
-                        break;
-                    }
-                }
-                lock.unlock();
-                std::unique_lock<std::mutex> lock(Trem::mtxTrecho01, std::defer_lock) // Mutex para proteger o trecho01
-                lock.lock();
-                while(x > 100) {
-                    x -= 20;
-                    emit updateGUI(ID, x, y);
-                    int delay = getDelay();
-                    if (delay < 0) {
-                        // Trem parado — congela mantendo posição e mutexes
-                        while (velocidade <= 0) {
-                            msleep(10); // dorme um pouquinho, só pra não travar a CPU
-                        }
-                    } else {
-                        msleep(delay); // anda normalmente conforme a "velocidade"
-                    }
-
-                }
-                lock.unlock()
             } else if (x == 100 && y < 500) { // movimenta para baixo
-                std::unique_lock<std::mutex> lock(Trem::mtxTrecho01, std::defer_lock); // Mutex para proteger o trecho01
-                lock.lock()
-                while(y < 500){
+                while(y < 260){
                     y += 20;
-                    emit updateGUI(ID, x, y);
-                    int delay = getDelay();
-                    if (delay < 0) {
-                        // Trem parado — congela mantendo posição e mutexes
-                        while (velocidade <= 0) {
-                            msleep(10); // dorme um pouquinho, só pra não travar a CPU
-                        }
-                    } else {
-                        msleep(delay); // anda normalmente conforme a "velocidade"
-                    }
-
-                    if(y == 300) {
-                        break;
-                    }
+                    fazAndar();
                 }
-                lock.unlock();
-                std::unique_lock<std::mutex> lock(Trem::mtxTrecho12, std::defer_lock); // Mutex para proteger o trecho12
-                lock.lock();
+                mtxTrecho02.lock();
+                while(y < 340) {
+                    y += 20;
+                    fazAndar();
+                }
+                mtxTrecho01.unlock();
                 while(y < 500) {
                     y += 20;
-                    emit updateGUI(ID, x, y);
-                    int delay = getDelay();
-                    if (delay < 0) {
-                        // Trem parado — congela mantendo posição e mutexes
-                        while (velocidade <= 0) {
-                            msleep(10); // dorme um pouquinho, só pra não travar a CPU
-                        }
-                    } else {
-                        msleep(delay); // anda normalmente conforme a "velocidade"
-                    }
-
-                    if(y == 500) {
-                        break;
-                    }
+                    fazAndar();
                 }
-                lock.unlock();
             } else if (y == 500 && x < 700) { // movimenta para direita
-                std::unique_lock<std::mutex> lock(Trem::mtxTrecho12, std::defer_lock); // Mutex psra proteger o trecho12
-                lock.lock();
-                while(x < 700){
+                while(x < 360){
                     x += 20;
-                    emit updateGUI(ID, x, y);
-                    int delay = getDelay();
-                    if (delay < 0) {
-                        // Trem parado — congela mantendo posição e mutexes
-                        while (velocidade <= 0) {
-                            msleep(10); // dorme um pouquinho, só pra não travar a CPU
-                        }
-                    } else {
-                        msleep(delay); // anda normalmente conforme a "velocidade"
-                    }
-
-                    if(x == 400) {
-                        break;
-                    }
+                    fazAndar();
                 }
-                lock.unlock();
-                std::unique_lock<std::mutex> lock(Trem::mtxTrecho10, std::defer_lock) // Mutex para proteger o trecho10
-                lock.lock();
+                mtxTrecho10.lock();
+                while(x < 440) {
+                    x += 20;
+                    fazAndar();
+                }
+                mtxTrecho02.unlock();
                 while(x < 700) {
                     x += 20;
-                    emit updateGUI(ID, x, y);
-                    int delay = getDelay();
-                    if (delay < 0) {
-                        // Trem parado — congela mantendo posição e mutexes
-                        while (velocidade <= 0) {
-                            msleep(10); // dorme um pouquinho, só pra não travar a CPU
-                        }
-                    } else {
-                        msleep(delay); // anda normalmente conforme a "velocidade"
-                    }
-
-                    if(x == 700) { 
-                        break;
-                    }
+                    fazAndar();
                 }
-                lock.unlock(); 
             } else { x == 700 && y > 100} // movimenta para cima
-                std::unique_lock<std::mutex> lock(Trem::mtxTrecho1, std::defer_lock); // Mutex para proteger trecho10
-                lock.lock();
-                while(y > 100){
+                while(y > 340){
                     y -= 20;
-                    emit updateGUI(ID, x, y);
-                    int delay = getDelay();
-                    if (delay < 0) {
-                        // Trem parado — congela mantendo posição e mutexes
-                        while (velocidade <= 0) {
-                            msleep(10); // dorme um pouquinho, só pra não travar a CPU
-                        }
-                    } else {
-                        msleep(delay); // anda normalmente conforme a "velocidade"
-                    }
-
-                    if(y == 300) {
-                        break;
-                    }
+                    fazAndar();
                 }
-                lock.unlock();
-                std::unique_lock<std::mutex> lock(Trem::mtxTrecho07, std::defer_lock);
+                if(!trecho07Reservado) {
+                    mtxTrecho07.lock();
+                    trecho07Reservado = true;
+                }
+                while(y > 260) {
+                    y -= 20;
+                    fazAndar();
+                }
+                mtxTrecho10.unlock();
                 while(y > 100) {
                     y -= 20;
-                    emit updateGUI(ID, x, y);
-                    if(y == 100) {
-                        break;  
-                    }
+                    fazAndar();
                 }
-                lock.unlock();
             }
             break;
             
