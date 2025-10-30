@@ -3,6 +3,7 @@
 
 #include <QThread>
 #include <mutex>
+#include <semaphore>
 /*
  * Classe Trem herda QThread
  * Classe Trem passa a ser uma thread.
@@ -17,6 +18,18 @@ public:
     void run(); // Método para os trens andarem
     void setVelocidade(int velocidadeDoTrem); // Método para alterar a velocidade em tempo de execução
     int getDelay() const; // Devolve a conversão de velocidade em tempo de espera
+
+    // Semáforos para controlar acesso as regiões sensíveis do código
+    static std::counting_semaphore sema01;
+    static std::counting_semaphore sema02;
+    static std::counting_semaphore sema03;
+    static std::counting_semaphore sema04;
+    static std::counting_semaphore sema05;
+    static std::counting_semaphore sema06;
+    static std::counting_semaphore sema07;
+    static std::counting_semaphore sema08;
+    
+
     // Mutexes para controlar cada um dos pontos críticos
     static std::mutex mtxTrecho01;
     static std::mutex mtxTrecho02;
@@ -40,7 +53,8 @@ private:
    int y;           //posição Y do trem na tela
    int ID;          //ID do trem
    int velocidade;  //Velocidade. É o tempo de dormir em milisegundos entre a mudança de posição do trem
-   void fazAndar();
+   void fazAndar(); //Método para atualizar a posição do trem com base na valocidade
+
 };
 
 
