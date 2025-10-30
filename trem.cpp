@@ -36,6 +36,16 @@ void Trem::fazAndar() {
     }
 }
 
+std::counting_semaphore Trem::sema01;
+std::counting_semaphore Trem::sema02;
+std::counting_semaphore Trem::sema03;
+std::counting_semaphore Trem::sema04;
+std::counting_semaphore Trem::sema05;
+std::counting_semaphore Trem::sema06;
+std::counting_semaphore Trem::sema07;
+std::counting_semaphore Trem::sema08;
+
+
 std::mutex Trem::mtxTrecho01;
 std::mutex Trem::mtxTrecho02;
 std::mutex Trem::mtxTrecho03;
