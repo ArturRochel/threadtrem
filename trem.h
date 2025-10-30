@@ -3,7 +3,7 @@
 
 #include <QThread>
 #include <mutex>
-#include <semaphore>
+#include <QSemaphore>
 /*
  * Classe Trem herda QThread
  * Classe Trem passa a ser uma thread.
@@ -20,14 +20,14 @@ public:
     int getDelay() const; // Devolve a conversão de velocidade em tempo de espera
 
     // Semáforos para controlar acesso as regiões sensíveis do código
-    static std::counting_semaphore sema01;
-    static std::counting_semaphore sema02;
-    static std::counting_semaphore sema03;
-    static std::counting_semaphore sema04;
-    static std::counting_semaphore sema05;
-    static std::counting_semaphore sema06;
-    static std::counting_semaphore sema07;
-    static std::counting_semaphore sema08;
+    static QSemaphore sema01;
+    static QSemaphore sema02;
+    static QSemaphore sema03;
+    static QSemaphore sema04;
+    static QSemaphore sema05;
+    static QSemaphore sema06;
+    static QSemaphore sema07;
+    static QSemaphore sema08;
     
 
     // Mutexes para controlar cada um dos pontos críticos

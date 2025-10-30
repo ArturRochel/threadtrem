@@ -214,11 +214,10 @@ MainWindow::MainWindow(QWidget *parent) :
 //Função que será executada quando o sinal UPDATEGUI for emitido
 void MainWindow::updateInterface(int id, int x, int y){
     switch(id){
-    // ATUALIZANDO TAMANHO DOS LABELS (de 21,17 para 42,34)
-    case 1: //Atualiza a posição do objeto da tela (quadrado) que representa o trem1
+    case 1:
         ui->label_trem1->setGeometry(x,y,42,34);
         break;
-    case 2: //Atualiza a posição do objeto da tela (quadrado) que representa o trem2
+    case 2:
         ui->label_trem2->setGeometry(x,y,42,34);
         break;
     case 3:

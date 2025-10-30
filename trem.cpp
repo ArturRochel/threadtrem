@@ -1,6 +1,6 @@
 #include "trem.h"
 #include <QtCore>
-
+#include <QSemaphore>
 //Construtor
 Trem::Trem(int ID, int x, int y){
     this->ID = ID;
@@ -36,14 +36,14 @@ void Trem::fazAndar() {
     }
 }
 
-std::counting_semaphore Trem::sema01;
-std::counting_semaphore Trem::sema02;
-std::counting_semaphore Trem::sema03;
-std::counting_semaphore Trem::sema04;
-std::counting_semaphore Trem::sema05;
-std::counting_semaphore Trem::sema06;
-std::counting_semaphore Trem::sema07;
-std::counting_semaphore Trem::sema08;
+QSemaphore Trem::sema01(2);
+QSemaphore Trem::sema02(2);
+QSemaphore Trem::sema03(2);
+QSemaphore Trem::sema04(2);
+QSemaphore Trem::sema05(2);
+QSemaphore Trem::sema06(2);
+QSemaphore Trem::sema07(2);
+QSemaphore Trem::sema08(2);
 
 std::mutex Trem::mtxTrecho01;
 std::mutex Trem::mtxTrecho02;
@@ -346,19 +346,19 @@ void Trem::run(){
                     fazAndar();
                 }
                 while(x > 660) { // BUFFER
-                    x -= 20
+                    x -= 20;
                     fazAndar();
                 }
                 mtxTrecho07.unlock();
-                trecho7Reservado = false
+                trecho07Reservado = false;
 
             } else if (y == 300 && x > 500) { // movimenta para esquerda
                 while(x > 540){ // BUFFER
                     x -= 20;
                     fazAndar();
                 }
-                mtxTrecho08.lock() 
-                while(x < 500){
+                mtxTrecho08.lock();
+                while(x > 500){
                     x -= 20;
                     fazAndar();
                 }
@@ -372,9 +372,9 @@ void Trem::run(){
                     y -= 20;
                     fazAndar();
                 }
-                if (!trecho7Reservado) {
+                if (!trecho07Reservado) {
                     mtxTrecho07.lock();
-                    trecho7Reservado = true;
+                    trecho07Reservado = true;
                 }
                 
                 while(y > 100) {
@@ -390,8 +390,8 @@ void Trem::run(){
             break;
 
         case 5: // Trem 5 - VERMELHO -(bloco superior central)
-            if (y == 100 && x < 500) { //! CORRIGIR ISSO AQUI
-                static bool trecho04Reservado = false; 
+            
+        static bool trecho04Reservado = false; 
             if (y == 100 && x < 700) { // movimenta para a direita
                 if(!trecho04Reservado) {
                     mtxTrecho04.lock();
@@ -401,7 +401,9 @@ void Trem::run(){
                     x += 20;
                     fazAndar();
                 }
-                mtxTrecho08.lock()
+
+                mtxTrecho08.lock();
+
                 while(x < 500){
                     x += 20;
                     fazAndar();
@@ -425,7 +427,7 @@ void Trem::run(){
                 }
                 while(x > 460) {
                     x -= 20;
-                    fazAndar()
+                    fazAndar();
                 }
                 mtxTrecho08.unlock();
                 
@@ -444,10 +446,10 @@ void Trem::run(){
                     x -= 20;
                     fazAndar();
                 }
-                mtxTrecho03.lock
-                while(x < 300) {
+                mtxTrecho03.lock();
+                while(x > 300) {
                     x -= 20;
-                    fazAndar()
+                    fazAndar();
                 }
                 while(y < 260) {
                     y -= 20;
@@ -463,96 +465,135 @@ void Trem::run(){
                     mtxTrecho04.lock();
                     trecho04Reservado = true;
                 }
-                while( y < 100) {
+                while( y > 100) {
                     y -= 20;
+                    fazAndar();
+                }
+
+                while(x < 340){
+                    x += 20;
+                    fazAndar();
+                }
+
+                mtxTrecho03.unlock();
+            }
+            break;
+
+        case 6: // Trem 6 - PRETO - (bloco inteiro)
+        
+            static bool trecho10Reservado = false; 
+            if (x == 700 && y > 100){// movimenta para cima
+                
+                if(!trecho10Reservado) {
+                    mtxTrecho10.lock();
+                    trecho10Reservado = true;
+                }
+                
+                while(y > 340){
+                    y -= 20;
+                    fazAndar();
+                }
+
+                mtxTrecho07.lock();
+
+                while(y > 260){
+                    y -= 20;
+                    fazAndar();
+                }
+
+                mtxTrecho10.unlock();
+                trecho10Reservado = false;
+
+                while(y > 100){
+                    y -= 20;
+                    fazAndar();
+                }
+
+            } else if (y == 100 && x > 100) { // movimenta para a esquerda
+                while(x > 540) {
+                    x -= 20;
+                    fazAndar();
+                }
+
+                mtxTrecho04.lock();
+
+                while(x > 460){
+                    x -= 20;
+                    fazAndar();
+                }
+
+                mtxTrecho07.unlock();
+
+                while(x > 340){
+                    x -= 20;
+                    fazAndar();
+                }
+
+                mtxTrecho01.lock();
+
+                while(x > 260){
+                    x -= 20;
+                    fazAndar();
+                }
+
+                mtxTrecho04.unlock();
+
+                while(x > 100){
+                    x -= 20;
+                    fazAndar();
+                }
+                
+            } else if (x == 100 && y < 500) { // movimenta para baixo
+                while(x > 100){
+                    x -= 20;
+                    fazAndar();
+                }
+                
+                while(y < 260){
+                    y += 20;
+                    fazAndar();
+                }
+
+                mtxTrecho12.lock();
+
+                while(y < 340){
+                    y += 20;
+                    fazAndar();
+                }
+
+                mtxTrecho01.unlock();
+
+                while(y < 500){
+                    y += 20;
+                    fazAndar();
+                }
+
+            }
+            else if (y == 500 && x < 700) { // movimenta para direita
+                while(x < 360){
+                    x += 20;
+                    fazAndar();
+                }
+
+                if(!trecho10Reservado) {
+                    mtxTrecho10.lock();
+                    trecho10Reservado = true;
+                }
+
+                while(x < 440){
+                    x += 20;
+                    fazAndar();
+                }
+
+                mtxTrecho12.unlock();
+
+                while(x < 700){
+                    x += 20;
                     fazAndar();
                 }
             }
             break;
 
-        case 6: // Trem 6 - PRETO - (bloco inteiro)
-        static bool trecho07Reservado = false; 
-            if (y == 100 && x > 100) { // movimenta para a esquerda
-                if(!trecho07Reservado) {
-                    mtxTrecho07.lock();
-                    trecho07Reservado = true;
-                }
-                while(x > 540) {
-                    x -= 20;
-                    fazAndar();
-                }
-                mtxTrecho04.lock();
-                while(x > 460) {
-                    x -= 20;
-                    fazAndar();
-                }
-                mtxTrecho07.unlock();
-                trecho07Reservado = false;
-                while(x > 340) {
-                    x -= 20;
-                    fazAndar();
-                }
-                mtxTrecho01.lock();
-                while(x > 260) {
-                    x -= 20;
-                    fazAndar();
-                }
-                mtxTrecho04.unlock();
-                while(x > 100) {
-                    x -= 20;
-                    fazAndar();
-                }
-            } else if (x == 100 && y < 500) { // movimenta para baixo
-                while(y < 260){
-                    y += 20;
-                    fazAndar();
-                }
-                mtxTrecho02.lock();
-                while(y < 340) {
-                    y += 20;
-                    fazAndar();
-                }
-                mtxTrecho01.unlock();
-                while(y < 500) {
-                    y += 20;
-                    fazAndar();
-                }
-            } else if (y == 500 && x < 700) { // movimenta para direita
-                while(x < 360){
-                    x += 20;
-                    fazAndar();
-                }
-                mtxTrecho10.lock();
-                while(x < 440) {
-                    x += 20;
-                    fazAndar();
-                }
-                mtxTrecho02.unlock();
-                while(x < 700) {
-                    x += 20;
-                    fazAndar();
-                }
-            } else { x == 700 && y > 100} // movimenta para cima
-                while(y > 340){
-                    y -= 20;
-                    fazAndar();
-                }
-                if(!trecho07Reservado) {
-                    mtxTrecho07.lock();
-                    trecho07Reservado = true;
-                }
-                while(y > 260) {
-                    y -= 20;
-                    fazAndar();
-                }
-                mtxTrecho10.unlock();
-                while(y > 100) {
-                    y -= 20;
-                    fazAndar();
-                }
-            }
-            break;
-            
         default:
             break;
         }
