@@ -29,8 +29,8 @@ private:
     //Cria os objetos TREM's
     Trem *trem1;
     Trem *trem2;
-    Trem *trem3;
-    Trem *trem4;
+    // Trem *trem3;
+    // Trem *trem4;
     Trem *trem5;
     Trem *trem6;
 };
