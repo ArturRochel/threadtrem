@@ -4,6 +4,7 @@
 #include <QThread>
 #include <mutex>
 #include <QSemaphore>
+
 /*
  * Classe Trem herda QThread
  * Classe Trem passa a ser uma thread.
@@ -18,8 +19,7 @@ public:
     void run(); // Método para os trens andarem
     void setVelocidade(int velocidadeDoTrem); // Método para alterar a velocidade em tempo de execução
     int getDelay() const; // Devolve a conversão de velocidade em tempo de espera
-
-    // Semáforos para controlar acesso as regiões sensíveis do código
+    
     static QSemaphore sema01;
     static QSemaphore sema02;
     static QSemaphore sema03;
@@ -28,7 +28,6 @@ public:
     static QSemaphore sema06;
     static QSemaphore sema07;
     static QSemaphore sema08;
-    
 
     // Mutexes para controlar cada um dos pontos críticos
     static std::mutex mtxTrecho01;
