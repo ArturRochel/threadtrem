@@ -242,6 +242,7 @@ void Trem::run(){
             static bool trecho06Reservado = false;
             if (y == 300 && x < 700) { // movimenta para a direita
                 if (!trecho06Reservado) {
+                    mtxTrecho09.lock()
                     mtxTrecho06.lock();
                     trecho06Reservado = true;
                 }
@@ -250,9 +251,6 @@ void Trem::run(){
                     x += 20;
                     fazAndar();
                 }
-
-                mtxTrecho09.lock();
-
 
                 while(x < 540){
                     x += 20;
@@ -502,6 +500,7 @@ void Trem::run(){
             if (x == 700 && y > 100){// movimenta para cima
 
                 if(!trecho10Reservado) {
+                    mtxTrecho07.lock();
                     mtxTrecho10.lock();
                     trecho10Reservado = true;
                 }
@@ -510,8 +509,6 @@ void Trem::run(){
                     y -= 20;
                     fazAndar();
                 }
-
-                mtxTrecho07.lock();
 
                 while(y > 260){
                     y -= 20;
@@ -531,6 +528,7 @@ void Trem::run(){
                     fazAndar();
                 }
 
+                mtxTrecho01.lock()
                 mtxTrecho04.lock();
 
                 while(x > 460){
@@ -544,7 +542,6 @@ void Trem::run(){
                     x -= 20;
                     fazAndar();
                 }
-                mtxTrecho01.lock();
 
                 while(x > 260){
                     x -= 20;
@@ -569,6 +566,8 @@ void Trem::run(){
                     fazAndar();
                 }
 
+                mtxTrecho10.lock();
+                trecho10Reservado = true;
                 mtxTrecho12.lock();
 
                 while(y < 340){
