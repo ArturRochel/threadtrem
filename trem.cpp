@@ -65,7 +65,7 @@ void Trem::run(){
         switch(ID){
             case 1: { // . Trem 1
             if (x == 100 && y > 100) {
-                // Ele começa na ponta de baixo, faz a curva e vai até o buffer em x = 260
+                // Ele começa na ponta de baixo. sobe, faz a curva e vai até o buffer em x = 260
                 {
                     std::lock_guard<std::mutex> lock01(mtxTrecho01);
                     
@@ -436,37 +436,44 @@ void Trem::run(){
             break;
 
         case 5: // Trem 5 - VERMELHO -(bloco superior central)
-            
-        static bool trecho04Reservado = false; 
             if (y == 100 && x < 700) { // movimenta para a direita
-                if(!trecho04Reservado) {
-                    mtxTrecho04.lock();
-                    trecho04Reservado = true;
+                {
+                    std::lock_guard<std::mutex> lock04(mtxTrecho04);
+                    
+                    while(x < 460){ // BUFFER
+                        x += 20;
+                        fazAndar();
+                    }
                 }
-                while(x < 460){ // BUFFER
-                    x += 20;
-                    fazAndar();
-                }
-                mtxTrecho08.lock();
 
-                while(x < 500){
-                    x += 20;
-                    fazAndar();
+
+                {
+                    std::scoped_lock locks(mtxTrecho04, mtxTrecho08);
+                    
+                    while(x < 500){
+                        x += 20;
+                        fazAndar();
+                    }
+                    while(y < 140){
+                        y += 20;
+                        fazAndar();
+                    }
                 }
-                while(y < 140){
-                    y += 20;
-                    fazAndar();
-                }
-                mtxTrecho04.unlock();
-                trecho04Reservado = false;
 
             } else if (x == 500 && y < 300) { // movimenta para baixo
-                while(y < 260){
-                    y += 20;
-                    fazAndar();
+                
+                {
+                    std::lock_guard<std::mutex> lock08(mtxTrecho08);
+
+                    while(y < 260){
+                        y += 20;
+                        fazAndar();
+                    }
                 }
 
-                mtxTrecho06.lock();
+
+                {
+                std::scoped_lock locks(mtxTrecho08, mtxTrecho06);
 
                 while(y < 300) {
                     y += 20;
@@ -476,27 +483,41 @@ void Trem::run(){
                     x -= 20;
                     fazAndar();
                 }
-                mtxTrecho08.unlock();
+                }
 
             } else if (y == 300 && x > 300) { // movimenta para esquerda
-               while(x > 440) {
+               
+                {
+                std::lock_guard<std::mutex> lock06(mtxTrecho06);
+
+                while(x > 440) {
                     x -= 20;
                     fazAndar();
                 }
+                }
 
-                mtxTrecho03.lock();
-                mtxTrecho05.lock();
+                {
+                std::scoped_lock locks(mtxTrecho06, mtxTrecho05);
 
                 while(x > 360) {
                     x -= 20;
                     fazAndar();
                 }
-                mtxTrecho06.unlock();
+                }
+                
+                {
+                std::lock_guard<std::mutex> lock05(mtxTrecho05);
+
+                
                 while(x > 340) {
                     x -= 20;
                     fazAndar();
                 }
-
+                }
+                
+                {
+                std::scoped_lock locks(mtxTrecho05, mtxTrecho03);
+                
                 while(x > 300) {
                     x -= 20;
                     fazAndar();
@@ -505,18 +526,23 @@ void Trem::run(){
                     y -= 20;
                     fazAndar();
                 }
-                
-                mtxTrecho05.unlock();
+                }
+
 
             } else { // x == 300 && y > 100 // movimenta para cima
-                while(y > 140){
+                {
+                std::lock_guard<std::mutex> lock05(mtxTrecho05);
+
+                    while(y > 140){
                     y -= 20;
                     fazAndar();
                 }
-                if(!trecho04Reservado) {
-                    mtxTrecho04.lock();
-                    trecho04Reservado = true;
                 }
+
+
+                {
+                std::scoped_lock locks(mtxTrecho05, mtxTrecho04);
+
                 while( y > 100) {
                     y -= 20;
                     fazAndar();
@@ -526,73 +552,76 @@ void Trem::run(){
                     x += 20;
                     fazAndar();
                 }
-
-                mtxTrecho03.unlock();
+                }
             }
             break;
 
         case 6: // Trem 6 - PRETO - (bloco inteiro)
 
-            static bool trecho10Reservado = false;
             if (x == 700 && y > 100){// movimenta para cima
-
-                if(!trecho10Reservado) {
-                    mtxTrecho07.lock();
-                    mtxTrecho10.lock();
-                    trecho10Reservado = true;
-                }
+                {
+                std::lock_guard<std::mutex> lock10(mtxTrecho10);
 
                 while(y > 340){
                     y -= 20;
                     fazAndar();
                 }
+                }
 
+                    
+                {
+                std::scoped_lock locks(mtxTrecho10, mtxTrecho07);
+                
                 while(y > 260){
                     y -= 20;
                     fazAndar();
                 }
-                mtxTrecho10.unlock();
-                trecho10Reservado = false;
-
                 while(y > 100){
                     y -= 20;
                     fazAndar();
                 }
+                }
 
             } else if (y == 100 && x > 100) { // movimenta para a esquerda
+                {
+                std::lock_guard<std::mutex> lock07(mtxTrecho07);
+
                 while(x > 540) {
                     x -= 20;
                     fazAndar();
                 }
-
-                mtxTrecho01.lock();
-                mtxTrecho04.lock();
+                }
+                
+                {
+                std::scoped_lock locks(mtxTrecho07, mtxTrecho04);
 
                 while(x > 460){
                     x -= 20;
                     fazAndar();
                 }
+                }
 
-                mtxTrecho07.unlock();
+                {
+                std::lock_guard<std::mutex> lock04(mtxTrecho04); 
 
                 while(x > 340){
                     x -= 20;
                     fazAndar();
                 }
+                }
+
+                
+                {
+                std::scoped_lock locks(mtxTrecho04, mtxTrecho01);
 
                 while(x > 260){
                     x -= 20;
                     fazAndar();
                 }
-
-                mtxTrecho04.unlock();
-
-                while(x > 100){
-                    x -= 20;
-                    fazAndar();
                 }
 
-            } else if (x == 100 && y < 500) { // movimenta para baixo
+                {
+                std::lock_guard<std::mutex> lock01(mtxTrecho01);
                 while(x > 100){
                     x -= 20;
                     fazAndar();
@@ -602,44 +631,48 @@ void Trem::run(){
                     y += 20;
                     fazAndar();
                 }
+                } 
 
-                mtxTrecho10.lock();
-                trecho10Reservado = true;
-                mtxTrecho12.lock();
-
-                while(y < 340){
+            } else if (x == 100 && y < 500) { // movimenta para baixo
+                
+                
+                {
+                std::scoped_lock locks(mtxTrecho01, mtxTrecho12);
+                
+                while(y < 340){ 
                     y += 20;
                     fazAndar();
                 }
+                }
 
-                mtxTrecho01.unlock();
+
+                {
+                std::lock_guard<std::mutex> lock12(mtxTrecho12);
+                
                 while(y < 500){
                     y += 20;
                     fazAndar();
                 }
-
+                }
             }
             else if (y == 500 && x < 700) { // movimenta para direita
+                {
+                std::lock_guard<std::mutex> lock12(mtxTrecho12);
+
                 while(x < 360){
                     x += 20;
                     fazAndar();
                 }
-
-                if(!trecho10Reservado) {
-                    mtxTrecho10.lock();
-                    trecho10Reservado = true;
                 }
 
-                while(x < 440){
-                    x += 20;
-                    fazAndar();
-                }
 
-                mtxTrecho12.unlock();
+                {
+                std::scoped_lock locks(mtxTrecho12, mtxTrecho10);
 
                 while(x < 700){
                     x += 20;
                     fazAndar();
+                }
                 }
             }
             break;
