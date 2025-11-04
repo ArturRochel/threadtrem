@@ -497,15 +497,15 @@ void Trem::run(){
             break;
 
         case 6: // Trem 6 - PRETO - (bloco inteiro)
-        
-            static bool trecho10Reservado = false; 
+
+            static bool trecho10Reservado = false;
             if (x == 700 && y > 100){// movimenta para cima
-                
+
                 if(!trecho10Reservado) {
                     mtxTrecho10.lock();
                     trecho10Reservado = true;
                 }
-                
+
                 while(y > 340){
                     y -= 20;
                     fazAndar();
@@ -557,13 +557,13 @@ void Trem::run(){
                     x -= 20;
                     fazAndar();
                 }
-                
+
             } else if (x == 100 && y < 500) { // movimenta para baixo
                 while(x > 100){
                     x -= 20;
                     fazAndar();
                 }
-                
+
                 while(y < 260){
                     y += 20;
                     fazAndar();
