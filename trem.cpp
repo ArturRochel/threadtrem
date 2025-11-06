@@ -82,7 +82,7 @@ void Trem::run(){
                     x += 20;
                     fazAndar();
                 }
-
+                sema01.acquire(); // ! semáforo para entrar no trecho 3
                 mtxTrecho03.lock();
                 
                 while (x < 300) {
@@ -127,23 +127,23 @@ void Trem::run(){
                     x -= 20;
                     fazAndar();
                 }
-
                 if (!trecho01Reservado) {
                     mtxTrecho01.lock();
                     trecho01Reservado = true;
                 }
-
+                
                 while (x > 100) {
                     x -= 20;
                     fazAndar();
                 }
-
+                
                 while (y > 260) {
                     y -= 20;
                     fazAndar();
                 }
-
+                
                 mtxTrecho02.unlock();
+                sema01.release(); // ! semáforo para sair do trecho 2
                 
             }
 
@@ -165,6 +165,7 @@ void Trem::run(){
                         y -= 20;
                         fazAndar();
                     }
+                    sema01.acquire(); // ! semáforo para entrar no trecho 2
                     mtxTrecho02.lock();
 
                     while(y > 300){ // movimenta para cima
@@ -184,7 +185,7 @@ void Trem::run(){
                         x += 20;
                         fazAndar();
                     }
-
+                    sema02.acquire(); // ? semáforo para entrar no trecho 5
                     mtxTrecho05.lock();
 
 
@@ -212,19 +213,18 @@ void Trem::run(){
                     }
 
                     mtxTrecho05.unlock();
-
+                    
                 } else if (x == 400 && y < 500) { // movimenta para baixo
                     while(y < 460){
                         y += 20;
                         fazAndar();
                     }
-
                     if (!trecho12Reservado) {
                         mtxTrecho12.lock();
                         trecho12Reservado = true;
                     }
-
-
+                    
+                    
                     while(y < 500){
                         y += 20;
                         fazAndar();
@@ -233,14 +233,17 @@ void Trem::run(){
                         x -= 20;
                         fazAndar();
                     }
-
+                    
                     mtxTrecho11.unlock();
+                    sema01.release(); // ! semáforo para sair do trecho 11 
+                    sema02.release(); // ? semáforo para sair do trecho 11 
                 }
             break;
 
         case 3: // Trem 3 - ROXO - (bloco inferior direito)
             static bool trecho06Reservado = false;
             if (y == 300 && x < 700) { // movimenta para a direita
+
                 if (!trecho06Reservado) {
                     mtxTrecho06.lock();
                     trecho06Reservado = true;
@@ -295,6 +298,8 @@ void Trem::run(){
                     mtxTrecho06.lock();
                     trecho06Reservado = true;
                 }
+                sema01.acquire(); // ! semáforo para entrar no trecho 11 
+                sema02.acquire(); // ? semáforo para entrar no trecho 11 
                 mtxTrecho11.lock();
 
                 while(x > 400){
@@ -329,8 +334,9 @@ void Trem::run(){
                     x += 20;
                     fazAndar();
                 }
-
                 mtxTrecho11.unlock();
+                sema01.release(); // ! semáforo para sair no trecho 11 
+                sema02.release(); // ? semáforo para sair do trecho 11 
             }
             break;
 
@@ -350,8 +356,7 @@ void Trem::run(){
                     y += 20;
                     fazAndar();
                 }
-
-                mtxTrecho08.lock();
+                sema02.acquire(); // ? semáforo para entrar no trecho 9 
                 mtxTrecho09.lock();
                 while(y < 300) {
                     y += 20;
@@ -363,12 +368,13 @@ void Trem::run(){
                 }
                 mtxTrecho07.unlock();
                 trecho07Reservado = false;
-
+                
             } else if (y == 300 && x > 500) { // movimenta para esquerda
                 while(x > 540){ // BUFFER
                     x -= 20;
                     fazAndar();
                 }
+                mtxTrecho08.lock();
                 while(x > 500){
                     x -= 20;
                     fazAndar();
@@ -397,6 +403,7 @@ void Trem::run(){
                     fazAndar();
                 }
                 mtxTrecho08.unlock();
+                sema02.release(); // ? semáforo para entrar no trecho 9 
             }
             break;
 
@@ -412,6 +419,7 @@ void Trem::run(){
                     x += 20;
                     fazAndar();
                 }
+                sema02.acquire(); // ? semáforo para entrar no trecho 8 
                 mtxTrecho08.lock();
 
                 while(x < 500){
@@ -430,7 +438,7 @@ void Trem::run(){
                     y += 20;
                     fazAndar();
                 }
-
+                sema01.acquire(); // ! semáforo para entrar no techo 6 
                 mtxTrecho06.lock();
 
                 while(y < 300) {
@@ -449,9 +457,8 @@ void Trem::run(){
                     fazAndar();
                 }
 
-                mtxTrecho03.lock();
                 mtxTrecho05.lock();
-
+                
                 while(x > 360) {
                     x -= 20;
                     fazAndar();
@@ -461,7 +468,10 @@ void Trem::run(){
                     x -= 20;
                     fazAndar();
                 }
+                sema02.release(); // ? semáforo para sair do trecho 6 
 
+
+                mtxTrecho03.lock();
                 while(x > 300) {
                     x -= 20;
                     fazAndar();
@@ -472,7 +482,7 @@ void Trem::run(){
                 }
                 
                 mtxTrecho05.unlock();
-
+                
             } else { // x == 300 && y > 100 // movimenta para cima
                 while(y > 140){
                     y -= 20;
@@ -486,13 +496,14 @@ void Trem::run(){
                     y -= 20;
                     fazAndar();
                 }
-
+                
                 while(x < 340){
                     x += 20;
                     fazAndar();
                 }
-
+                
                 mtxTrecho03.unlock();
+                sema01.release(); // ! semáforo para sair do trecho 3 
             }
             break;
 
