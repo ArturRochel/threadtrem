@@ -66,8 +66,7 @@ void Trem::run(){
             case 1: { // . Trem 1
             static bool trecho01Reservado = false;
 
-            if (x == 100 && y > 100) {
-                
+            if (x == 100 && y > 100) {     
                 if (!trecho01Reservado) {
                     mtxTrecho01.lock();
                     trecho01Reservado = true;
@@ -108,6 +107,7 @@ void Trem::run(){
                 
                 mtxTrecho02.lock(); 
 
+
                 
                 while (y < 300) {
                     y += 20;
@@ -144,7 +144,6 @@ void Trem::run(){
                 
                 mtxTrecho02.unlock();
                 sema01.release(); // ! semáforo para sair do trecho 2
-                
             }
 
             break;
@@ -152,7 +151,6 @@ void Trem::run(){
             case 2: //. Trem 2 
                 static bool trecho12Reservado = false;
                 if (y == 500 && x > 100) { // movimenta para esquerda
-                    
                     if (!trecho12Reservado) {
                         mtxTrecho12.lock();
                         trecho12Reservado = true;
@@ -177,7 +175,6 @@ void Trem::run(){
                         x += 20;
                         fazAndar();
                     }
-
                     mtxTrecho12.unlock();
                     trecho12Reservado = false;
                 } else if(y == 300 && x < 400) { // movimenta para a direita
@@ -187,7 +184,6 @@ void Trem::run(){
                     }
                     sema02.acquire(); // ? semáforo para entrar no trecho 5
                     mtxTrecho05.lock();
-
 
                     while(x < 340){
                         x += 20;
@@ -207,7 +203,7 @@ void Trem::run(){
                         x += 20;
                         fazAndar();
                     }
-                    while(y < 340){
+                    while(y < 340) {
                         y += 20;
                         fazAndar();
                     }
@@ -264,7 +260,6 @@ void Trem::run(){
 
                 mtxTrecho06.unlock(); 
                 trecho06Reservado = false;
-
                 while(x < 660){
                     x += 20;
                     fazAndar();
@@ -476,7 +471,7 @@ void Trem::run(){
                     x -= 20;
                     fazAndar();
                 }
-                while(y < 260) {
+                while(y > 260) {
                     y -= 20;
                     fazAndar();
                 }
