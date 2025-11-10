@@ -153,7 +153,7 @@ MainWindow::MainWindow(QWidget *parent) :
     trem3 = new Trem(3,400,300);  // ADICIONANDO OS TRENS
     trem4 = new Trem(4,500,100);
     trem5 = new Trem(5,300,100);
-    // trem6 = new Trem(6,700,500);
+    trem6 = new Trem(6,700,500);
     /*
      * Conecta o sinal UPDATEGUI à função UPDATEINTERFACE.
      * Ou seja, sempre que o sinal UPDATEGUI foi chamado, será executada a função UPDATEINTERFACE.
@@ -170,7 +170,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(trem3,SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
     connect(trem4,SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
     connect(trem5,SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
-    // connect(trem6,SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
+    connect(trem6,SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
 
     // Sincroniza a velocidade inicial do trem em 50, o mesmo valor inicial do slide
     trem1->setVelocidade(ui->sliderTrem1->value());
@@ -178,7 +178,7 @@ MainWindow::MainWindow(QWidget *parent) :
     trem3->setVelocidade(ui->sliderTrem3->value());
     trem4->setVelocidade(ui->sliderTrem4->value());
     trem5->setVelocidade(ui->sliderTrem5->value());
-    // trem6->setVelocidade(ui->sliderTrem6->value());
+    trem6->setVelocidade(ui->sliderTrem6->value());
 
     // Controle de velocidade dos trens em tempo de execução com controle por slide
     connect(ui->sliderTrem1, &QSlider::valueChanged, this, [=](int value){
@@ -196,9 +196,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->sliderTrem5, &QSlider::valueChanged, this, [=](int value){
     trem5->setVelocidade(value);
     });
-    // connect(ui->sliderTrem6, &QSlider::valueChanged, this, [=](int value){
-    // trem6->setVelocidade(value);
-    // });
+    connect(ui->sliderTrem6, &QSlider::valueChanged, this, [=](int value){
+    trem6->setVelocidade(value);
+    });
 
 
     // colocando aqui para inicair os trens assim que o programa é iniciado
@@ -207,7 +207,7 @@ MainWindow::MainWindow(QWidget *parent) :
     trem3->start();
     trem4->start();
     trem5->start();
-    // trem6->start();
+    trem6->start();
 
 }
 
@@ -229,9 +229,9 @@ void MainWindow::updateInterface(int id, int x, int y){
     case 5:
         ui->label_trem5->setGeometry(x,y,42,34);
         break;
-    // case 6:
-    //     ui->label_trem6->setGeometry(x,y,42,34);
-    //      break;
+    case 6:
+        ui->label_trem6->setGeometry(x,y,42,34);
+         break;
     default:
         break;
     }

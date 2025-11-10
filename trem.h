@@ -19,15 +19,6 @@ public:
     void run(); // Método para os trens andarem
     void setVelocidade(int velocidadeDoTrem); // Método para alterar a velocidade em tempo de execução
     int getDelay() const; // Devolve a conversão de velocidade em tempo de espera
-    
-    static QSemaphore sema01;
-    static QSemaphore sema02;
-    static QSemaphore sema03;
-    static QSemaphore sema04;
-    static QSemaphore sema05;
-    static QSemaphore sema06;
-    static QSemaphore sema07;
-    static QSemaphore sema08;
 
     // Mutexes para controlar cada um dos pontos críticos
     static std::mutex mtxTrecho01;
@@ -37,11 +28,10 @@ public:
     static std::mutex mtxTrecho05;
     static std::mutex mtxTrecho06;
     static std::mutex mtxTrecho07;
-    static std::mutex mtxTrecho08;
-    static std::mutex mtxTrecho09;
-    static std::mutex mtxTrecho10;
-    static std::mutex mtxTrecho11;
-    static std::mutex mtxTrecho12;
+    static std::mutex mtxTrechoCima;
+    static std::mutex mtxTrechoBaixo;
+    static std::mutex mtxTrechoDireita;
+    static std::mutex mtxTrechoEsquerda;
 
 //Cria um sinal
 signals:
@@ -53,6 +43,7 @@ private:
    int ID;          //ID do trem
    int velocidade;  //Velocidade. É o tempo de dormir em milisegundos entre a mudança de posição do trem
    void fazAndar(); //Método para atualizar a posição do trem com base na valocidade
+   void logSemaforo(QSemaphore &semaforo, const QString &nome, const QString &acao); // print de controle para os semáforos
 
 };
 
