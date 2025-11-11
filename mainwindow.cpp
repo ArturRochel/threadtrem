@@ -148,12 +148,12 @@ MainWindow::MainWindow(QWidget *parent) :
     );
 
     //Cria o trem com seu (ID, posição X, posição Y)
-    trem1 = new Trem(1,100,300);
-    trem2 = new Trem(2,400,500);
-    trem3 = new Trem(3,400,300);  // ADICIONANDO OS TRENS
-    trem4 = new Trem(4,500,100);
-    trem5 = new Trem(5,300,100);
-    trem6 = new Trem(6,700,500);
+    trem1 = new Trem(1,200,100);
+    trem2 = new Trem(2,250,500);
+    trem3 = new Trem(3,700,400);  // ADICIONANDO OS TRENS
+    trem4 = new Trem(4,500,200);
+    trem5 = new Trem(5,300,200);
+    trem6 = new Trem(6,100,200);
     /*
      * Conecta o sinal UPDATEGUI à função UPDATEINTERFACE.
      * Ou seja, sempre que o sinal UPDATEGUI foi chamado, será executada a função UPDATEINTERFACE.
