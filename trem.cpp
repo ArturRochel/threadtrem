@@ -183,7 +183,7 @@ void Trem::run(){
                     }
 
                     if(y == 460) {
-                        lock12.lock();
+                        std::lock(lock12, lock13);
                     }
 
                     y += 20;
@@ -195,11 +195,8 @@ void Trem::run(){
                         lock11.unlock();
                     }
 
-                    if(x == 140) {
-                        if(contatorTrem02 == 0) {
-                            contatorTrem02 ++;
-                        }
-                        lock13.lock();
+                    if(contatorTrem02 == 0) {
+                        contatorTrem02 ++;
                     }
 
                     x -= 20;
@@ -247,7 +244,7 @@ void Trem::run(){
                     fazAndar();
                 }
 
-                whilex(x < 500) { // Esta indo para a direita em direção a (500, 300) - Percorre apenas o trecho06
+                while(x < 500) { // Esta indo para a direita em direção a (500, 300) - Percorre apenas o trecho06
                     if(x == 440) {
                         lock11.unlock();
                     }
@@ -271,7 +268,7 @@ void Trem::run(){
                     x += 20;
                     fazAndar();
                 }
-                lock09.unloack();
+                lock09.unlock();
             }
         break;
         case 4: // Trem 4 - AZUL -(bloco superior direito)
@@ -406,61 +403,107 @@ void Trem::run(){
        
 case 6: // Trem 6 - PRETO (Anti-horário, conforme PDF )
     {
-        // Declarações (os 4 trilhos externos)
-        std::unique_lock<std::mutex> lockCima(mtxTrechoCima, std::defer_lock);
-        std::unique_lock<std::mutex> lockDireita(mtxTrechoDireita, std::defer_lock);
-        std::unique_lock<std::mutex> lockBaixo(mtxTrechoBaixo, std::defer_lock);
-        std::unique_lock<std::mutex> lockEsquerda(mtxTrechoEsquerda, std::defer_lock);
+        std::unique_lock<std::mutex> lock12(mtxTrecho12, std::defer_lock);
+        std::unique_lock<std::mutex> lock10(mtxTrecho10, std::defer_lock);
+        std::unique_lock<std::mutex> lock07(mtxTrecho07, std::defer_lock);
+        std::unique_lock<std::mutex> lock04(mtxTrecho04, std::defer_lock);
+        std::unique_lock<std::mutex> lock01(mtxTrecho01, std::defer_lock);
+        std::unique_lock<std::mutex> lock13(mtxTrecho13, std::defer_lock);
 
-        lockBaixo.lock();
-        while(x < 700) {
-            if(x == 660) {
-                lockDireita.lock();
+        int contadorTrem06 = 0;
+
+        while(x < 400) {  // Esta indo para a direita em direção a (400, 500) - Percorre o trecho12
+            if(contadorTrem06 == 0) {
+                lock12.lock();
+            }
+            if(x == 360) {
+                lock10.lock();
             }
 
             x += 20;
             fazAndar();
         }
 
-        while(y > 100) {
-            if(y == 460) {
-                lockBaixo.unlock();
+        while(x < 700) {  // Esta indo para a direita em direção a (700, 500) - Percorre o trecho10
+            if(x == 440) {
+                lock12.unlock();
             }
 
-            if(y == 140) {
-                lockCima.lock();
+            x += 20;
+            fazAndar();
+        }
+
+        while(y > 300) { // Esta indo para cima em direção a (700, 300) - Percorre o trecho10
+            if(y == 340) {
+                lock07.lock();
             }
 
             y -= 20;
             fazAndar();
         }
 
-        while(x > 100) {
-            if(x == 660) {
-                lockDireita.unlock();
+        while (y > 100) { // Esta indo para cima em direção a (700, 100) - Percorre o trecho07
+            if(y == 260) {
+                lock10.unlock();
             }
 
-            if(x == 140) {
-                lockEsquerda.lock();
+            y -= 20;
+            fazAndar();
+        }
+
+        while(x > 500) { // Esta indo para esquerda em direção a (500, 100) - Percorre o trecho07
+            if(x == 540) {
+                lock04.lock();
             }
 
             x -= 20;
             fazAndar();
         }
 
-        while(y < 500) {
-            if(y == 140) {
-                lockCima.unlock();
+        while(x > 300) { // Esta indo para esquerda em direção a (300, 100) - Percorre o trecho04
+            if(x == 460) {
+                lock07.unlock();
             }
 
-            if(y == 460) {
-                lockBaixo.lock();
+            if(x == 340) {
+                lock01.lock();
+            }
+
+            x -= 20;
+            fazAndar();
+        }
+
+        while(x > 100) { // Esta indo para esquerda em direção a (100, 100) - Percorre o trecho01
+            if(x == 260) {
+                lock04.unlock();
+            }
+
+            x -= 20;
+            fazAndar();
+        }
+
+        while(y < 300) { // Esta indo para baixo em direção a (100, 300) - Percorre o trecho01
+            if(y == 260) {
+                std::lock(lock13, lock12);
+                if(contadorTrem06 == 0) {
+                    contadorTrem06++;
+                }
             }
 
             y += 20;
             fazAndar();
         }
-        lockEsquerda.unlock();
+
+        while(y < 500) { // Esta indo para baixo em direção a (100, 500) - Percorre o trecho13
+            if(y == 340) {
+                lock01.unlock();
+            }
+
+            y += 20;
+            fazAndar();
+        }
+        lock13.unlock();
+
     }
     break;
         default:
