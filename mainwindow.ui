@@ -263,7 +263,7 @@
      <number>200</number>
     </property>
     <property name="value">
-     <number>50</number>
+     <number>20</number>
     </property>
     <property name="orientation">
      <enum>Qt::Orientation::Horizontal</enum>
@@ -285,7 +285,7 @@
      <number>200</number>
     </property>
     <property name="value">
-     <number>50</number>
+     <number>20</number>
     </property>
     <property name="orientation">
      <enum>Qt::Orientation::Horizontal</enum>
@@ -307,7 +307,7 @@
      <number>200</number>
     </property>
     <property name="value">
-     <number>50</number>
+     <number>20</number>
     </property>
     <property name="orientation">
      <enum>Qt::Orientation::Horizontal</enum>
@@ -329,7 +329,7 @@
      <number>200</number>
     </property>
     <property name="value">
-     <number>50</number>
+     <number>20</number>
     </property>
     <property name="orientation">
      <enum>Qt::Orientation::Horizontal</enum>
