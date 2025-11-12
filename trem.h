@@ -28,10 +28,16 @@ public:
     static std::mutex mtxTrecho05;
     static std::mutex mtxTrecho06;
     static std::mutex mtxTrecho07;
-    static std::mutex mtxTrechoCima;
-    static std::mutex mtxTrechoBaixo;
-    static std::mutex mtxTrechoDireita;
-    static std::mutex mtxTrechoEsquerda;
+    static std::mutex mtxTrecho08;
+    static std::mutex mtxTrecho09;
+    static std::mutex mtxTrecho10;
+    static std::mutex mtxTrecho11;
+    static std::mutex mtxTrecho12;
+    static std::mutex mtxTrecho13;
+
+    // Semáforos para controlar trechos internos
+    static QSemaphore sema01;
+    static QSemaphore sema02;
 
 //Cria um sinal
 signals:
